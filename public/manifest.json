@@ -1,0 +1,21 @@
+{
+  "name": "JAIRRESTAURA IA DE ESTUDIO",
+  "short_name": "JAIRRESTAURA IA",
+  "description": "Plataforma educativa con inteligencia artificial capaz de transformar PDF, DOCX, TXT, EPUB y PPTX en cursos interactivos, cuestionarios, flashcards, mapas conceptuales y tutorías inteligentes.",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#0B0F17",
+  "theme_color": "#2563EB",
+  "icons": [
+    {
+      "src": "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='22' fill='%232563EB'/><text y='.88em' x='12' font-size='72'>🧠</text></svg>",
+      "sizes": "192x192",
+      "type": "image/svg+xml"
+    },
+    {
+      "src": "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='22' fill='%237C3AED'/><text y='.88em' x='12' font-size='72'>🧠</text></svg>",
+      "sizes": "512x512",
+      "type": "image/svg+xml"
+    }
+  ]
+}

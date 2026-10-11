@@ -1,0 +1,8 @@
+{
+  "name": "JAIRRESTAURA IA DE ESTUDIO",
+  "description": "Plataforma educativa con inteligencia artificial capaz de transformar PDF, DOCX, TXT, EPUB y PPTX en cursos interactivos, cuestionarios, flashcards, mapas conceptuales y tutorías inteligentes.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}
