@@ -1,25 +1,3487 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="es">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>JAIRRESTAURA IA DE ESTUDIO — Convierte cualquier documento en conocimiento inteligente</title>
-    <meta name="description" content="Plataforma educativa con inteligencia artificial capaz de transformar PDF, DOCX, TXT, EPUB y PPTX en cursos interactivos, cuestionarios, flashcards, mapas conceptuales y tutorías inteligentes." />
-    <meta name="theme-color" content="#2563EB" />
-    <meta property="og:title" content="JAIRRESTAURA IA DE ESTUDIO" />
-    <meta property="og:description" content="Plataforma educativa con inteligencia artificial capaz de transformar PDF, DOCX, TXT, EPUB y PPTX en cursos interactivos, cuestionarios, flashcards, mapas conceptuales y tutorías inteligentes." />
-    <meta property="og:type" content="website" />
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="JAIRRESTAURA IA DE ESTUDIO" />
-    <meta name="twitter:description" content="Convierte cualquier documento en conocimiento inteligente." />
-    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><rect width=%22100%22 height=%22100%22 rx=%2224%22 fill=%22%232563EB%22/><text y=%22.88em%22 x=%2212%22 font-size=%2272%22>🧠</text></svg>" />
-    <link rel="manifest" href="./manifest.json" />
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Plus+Jakarta+Sans:wght@500;600;700;800&family=Public+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
-  </head>
-  <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.tsx"></script>
-  </body>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, maximum-scale=5.0" />
+  <title>JAIRRESTAURA LECTOR IA PREMIUM — Lector Inteligente Mobile-First &amp; PWA</title>
+  <meta name="description" content="JAIRRESTAURA LECTOR IA PREMIUM: Lector inteligente de documentos sincronizado Mobile-First y PWA con SpeechSynthesis en tiempo real, PDF.js, Mammoth.js, EPUB, resumen IA, conceptos clave, cuestionario, flashcards y mapa mental." />
+  <meta name="theme-color" content="#070B14" id="metaThemeColor" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-title" content="Lector IA" />
+  <meta property="og:title" content="JAIRRESTAURA LECTOR IA PREMIUM" />
+  <meta property="og:description" content="Lector Inteligente de Documentos Sincronizado Mobile-First con IA, PDF.js, Mammoth.js, EPUB, SpeechSynthesis en tiempo real y suite completa de estudio." />
+  <meta property="og:type" content="website" />
+
+  <!-- PWA Manifest & Icons -->
+  <link rel="manifest" href="./manifest.json" id="pwaManifestLink" />
+  <link rel="icon" type="image/svg+xml" href="./icon.svg" />
+  <link rel="apple-touch-icon" id="appleTouchIconLink" href="./icon.svg" />
+
+  <!-- Fuentes Tipográficas Premium (Plus Jakarta Sans, Public Sans, JetBrains Mono, Lexend) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Lexend:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@600;700;800&family=Public+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+
+  <!-- Librerías Oficiales CDN Estables (PDF.js, Mammoth.js, JSZip, jsPDF) -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/mammoth/1.8.0/mammoth.browser.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js" defer></script>
+
+  <style>
+    /* ==========================================================================
+       1. VARIABLES CSS MODERNAS, SAFE AREA (IPHONE NOTCH / DYNAMIC ISLAND) Y TEMAS
+       ========================================================================== */
+    :root {
+      /* Safe Area Insets para iPhone / Dynamic Island / Gestos inferiores */
+      --safe-top: env(safe-area-inset-top, 0px);
+      --safe-bottom: env(safe-area-inset-bottom, 0px);
+      --safe-left: env(safe-area-inset-left, 0px);
+      --safe-right: env(safe-area-inset-right, 0px);
+
+      /* Tema Oscuro Nativo Premium (Inspirado en ChatGPT Mobile, Copilot, Kindle, One UI) */
+      --bg-canvas: #070B14;
+      --bg-surface: #0F1626;
+      --bg-elevated: #17223B;
+      --bg-glass: rgba(15, 22, 38, 0.86);
+      --bg-glass-heavy: rgba(9, 14, 26, 0.95);
+      --text-primary: #F8FAFC;
+      --text-secondary: #94A3B8;
+      --text-muted: #64748B;
+      --border-subtle: rgba(148, 163, 184, 0.14);
+      --border-neon: rgba(56, 189, 248, 0.42);
+      --brand-primary: #3B82F6;
+      --brand-secondary: #8B5CF6;
+      --brand-cyan: #06B6D4;
+      --brand-emerald: #10B981;
+      --brand-amber: #F59E0B;
+      --brand-rose: #F43F5E;
+      --brand-gradient: linear-gradient(135deg, #2563EB 0%, #7C3AED 52%, #06B6D4 100%);
+      --surface-glow: 0 12px 32px -8px rgba(0, 0, 0, 0.6), 0 0 18px -4px rgba(59, 130, 246, 0.14);
+      --neon-shadow: 0 6px 20px rgba(6, 182, 212, 0.3);
+
+      /* Tipografía fluida de lectura Mobile-First */
+      --reader-font-size: clamp(1.02rem, 2.5vw, 1.18rem);
+      --reader-line-height: 1.85;
+      --reader-letter-spacing: 0.01em;
+
+      /* Colores de resaltado sincronizado de alta legibilidad */
+      --hl-word-bg: #FFD54F;
+      --hl-word-text: #090D16;
+      --hl-sentence-bg: rgba(255, 245, 157, 0.24);
+      --hl-sentence-border: #FACC15;
+      --hl-paragraph-bg: rgba(59, 130, 246, 0.13);
+      --hl-paragraph-border: rgba(56, 189, 248, 0.5);
+
+      /* Dimensiones de barras móviles */
+      --bottom-nav-height: 68px;
+      --topbar-height: 60px;
+    }
+
+    body.light-theme {
+      --bg-canvas: #F8FAFC;
+      --bg-surface: #FFFFFF;
+      --bg-elevated: #F1F5F9;
+      --bg-glass: rgba(255, 255, 255, 0.88);
+      --bg-glass-heavy: rgba(255, 255, 255, 0.96);
+      --text-primary: #0F172A;
+      --text-secondary: #475569;
+      --text-muted: #64748B;
+      --border-subtle: rgba(15, 23, 42, 0.1);
+      --border-neon: rgba(37, 99, 235, 0.35);
+      --surface-glow: 0 10px 28px -8px rgba(15, 23, 42, 0.07);
+      --neon-shadow: 0 6px 18px rgba(37, 99, 235, 0.22);
+      --hl-sentence-bg: #FFF59D;
+      --hl-paragraph-bg: rgba(37, 99, 235, 0.08);
+      --hl-paragraph-border: rgba(37, 99, 235, 0.42);
+    }
+
+    body.sepia-theme {
+      --bg-canvas: #F4ECD8;
+      --bg-surface: #FAF4E4;
+      --bg-elevated: #EFE5CD;
+      --bg-glass: rgba(250, 244, 228, 0.92);
+      --bg-glass-heavy: rgba(244, 236, 216, 0.97);
+      --text-primary: #2C221E;
+      --text-secondary: #5C4B42;
+      --text-muted: #7C6A5E;
+      --border-subtle: rgba(92, 75, 66, 0.16);
+      --border-neon: rgba(180, 83, 9, 0.4);
+      --hl-sentence-bg: rgba(253, 224, 71, 0.45);
+      --hl-paragraph-bg: rgba(180, 83, 9, 0.09);
+      --hl-paragraph-border: rgba(180, 83, 9, 0.45);
+    }
+
+    body.high-contrast {
+      --bg-canvas: #000000 !important;
+      --bg-surface: #070707 !important;
+      --bg-elevated: #141414 !important;
+      --bg-glass: rgba(0, 0, 0, 0.96) !important;
+      --bg-glass-heavy: rgba(0, 0, 0, 0.98) !important;
+      --text-primary: #FFFFFF !important;
+      --text-secondary: #FFEE58 !important;
+      --text-muted: #FFF59D !important;
+      --border-subtle: #FFD54F !important;
+      --border-neon: #00E5FF !important;
+      --hl-word-bg: #00E5FF !important;
+      --hl-word-text: #000000 !important;
+      --hl-sentence-bg: rgba(255, 213, 79, 0.35) !important;
+      --hl-paragraph-bg: rgba(255, 255, 255, 0.12) !important;
+    }
+
+    body.large-font {
+      --reader-font-size: clamp(1.22rem, 3.4vw, 1.42rem);
+      --reader-line-height: 2.05;
+    }
+
+    body.wide-spacing {
+      --reader-line-height: 2.2;
+      --reader-letter-spacing: 0.04em;
+    }
+
+    body.dyslexia-font .reader-viewport {
+      font-family: 'Lexend', sans-serif !important;
+      letter-spacing: 0.05em !important;
+      word-spacing: 0.12em !important;
+    }
+
+    /* Modo Lectura Inmersiva (Pantalla Completa enfocada en el texto) */
+    body.immersive-mode .topbar,
+    body.immersive-mode .sidebar,
+    body.immersive-mode .stats-bar,
+    body.immersive-mode .upload-dropzone,
+    body.immersive-mode .bottom-nav {
+      display: none !important;
+    }
+
+    body.immersive-mode .app-layout {
+      display: block !important;
+    }
+
+    body.immersive-mode .main-viewport {
+      max-width: 880px !important;
+      padding: calc(var(--safe-top) + 0.75rem) 1rem calc(var(--safe-bottom) + 6rem) 1rem !important;
+    }
+
+    body.immersive-mode .reader-viewport {
+      max-height: none !important;
+    }
+
+    /* ==========================================================================
+       2. RESET MOBILE-FIRST, CERO SCROLL HORIZONTAL Y TRANSICIONES DE 60 FPS
+       ========================================================================== */
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    html {
+      width: 100%;
+      max-width: 100%;
+      overflow-x: hidden;
+      scroll-behavior: smooth;
+      -webkit-text-size-adjust: 100%;
+    }
+
+    body {
+      width: 100%;
+      max-width: 100%;
+      min-height: 100dvh;
+      background-color: var(--bg-canvas);
+      color: var(--text-primary);
+      font-family: 'Public Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+      line-height: 1.6;
+      overflow-x: hidden;
+      overscroll-behavior-y: none;
+      transition: background-color 0.22s ease, color 0.22s ease;
+    }
+
+    h1, h2, h3, h4, .font-display {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      letter-spacing: -0.02em;
+      overflow-wrap: anywhere;
+    }
+
+    .font-mono {
+      font-family: 'JetBrains Mono', monospace;
+      font-variant-numeric: tabular-nums;
+    }
+
+    /* Skip Link para lectores de pantalla y teclado */
+    .skip-link {
+      position: fixed;
+      top: -100px;
+      left: 1rem;
+      z-index: 10000;
+      padding: 0.75rem 1.25rem;
+      background: var(--brand-primary);
+      color: #fff;
+      font-weight: 700;
+      border-radius: 12px;
+      text-decoration: none;
+      transition: top 0.2s ease;
+    }
+
+    .skip-link:focus {
+      top: calc(var(--safe-top) + 0.75rem);
+    }
+
+    /* Barra superior de progreso global */
+    .top-progress-line {
+      position: fixed;
+      top: var(--safe-top);
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: rgba(148, 163, 184, 0.14);
+      z-index: 9999;
+      pointer-events: none;
+    }
+
+    .top-progress-fill {
+      height: 100%;
+      width: 0%;
+      background: var(--brand-gradient);
+      box-shadow: 0 0 10px rgba(6, 182, 212, 0.8);
+      transition: width 0.18s linear;
+      will-change: width;
+    }
+
+    /* Banner Offline PWA */
+    .offline-banner {
+      display: none;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      padding: 0.45rem 1rem;
+      background: rgba(245, 158, 11, 0.18);
+      border-bottom: 1px solid var(--brand-amber);
+      color: var(--brand-amber);
+      font-size: 0.78rem;
+      font-weight: 600;
+      text-align: center;
+    }
+
+    .offline-banner.visible {
+      display: flex;
+    }
+
+    /* ==========================================================================
+       3. BOTONES TÁCTILES NATIVOS (MÍNIMO 48x48 PX PARA DEDOS Y PULGAR)
+       ========================================================================== */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.45rem;
+      min-height: 48px;
+      min-width: 48px;
+      padding: 0.55rem 0.95rem;
+      border-radius: 14px;
+      border: 1px solid var(--border-subtle);
+      background: var(--bg-surface);
+      color: var(--text-primary);
+      font-family: inherit;
+      font-size: 0.84rem;
+      font-weight: 600;
+      line-height: 1.2;
+      cursor: pointer;
+      touch-action: manipulation;
+      user-select: none;
+      text-align: center;
+      transition: transform 0.14s cubic-bezier(0.22, 1, 0.36, 1), border-color 0.16s ease, background-color 0.16s ease;
+    }
+
+    .btn:hover {
+      border-color: var(--brand-cyan);
+    }
+
+    .btn:active {
+      transform: scale(0.96);
+    }
+
+    .btn:focus-visible {
+      outline: 2px solid var(--brand-cyan);
+      outline-offset: 2px;
+    }
+
+    .btn-primary {
+      background: var(--brand-gradient);
+      color: #ffffff;
+      border-color: transparent;
+      box-shadow: var(--neon-shadow);
+    }
+
+    .btn-soft {
+      background: rgba(59, 130, 246, 0.14);
+      border-color: rgba(59, 130, 246, 0.38);
+      color: #60A5FA;
+    }
+
+    body.light-theme .btn-soft,
+    body.sepia-theme .btn-soft {
+      color: #2563EB;
+    }
+
+    .btn-danger {
+      background: rgba(244, 63, 94, 0.12);
+      border-color: rgba(244, 63, 94, 0.35);
+      color: var(--brand-rose);
+    }
+
+    .btn-icon-only {
+      padding: 0.5rem;
+      width: 48px;
+      height: 48px;
+      flex-shrink: 0;
+    }
+
+    /* ==========================================================================
+       4. BARRA SUPERIOR MOBILE-FIRST COMPACTA CON BUSCADOR INTELIGENTE
+       ========================================================================== */
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      padding: calc(var(--safe-top) + 0.5rem) calc(var(--safe-right) + 0.85rem) 0.5rem calc(var(--safe-left) + 0.85rem);
+      background: var(--bg-glass);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      border-bottom: 1px solid var(--border-subtle);
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .topbar-main-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.5rem;
+      width: 100%;
+    }
+
+    .brand-lockup {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      text-decoration: none;
+      color: var(--text-primary);
+      min-width: 0;
+      flex: 1;
+    }
+
+    .brand-orb {
+      width: 42px;
+      height: 42px;
+      border-radius: 12px;
+      background: var(--brand-gradient);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.2rem;
+      color: #fff;
+      box-shadow: var(--neon-shadow);
+      flex-shrink: 0;
+    }
+
+    .brand-text-wrap {
+      min-width: 0;
+      overflow: hidden;
+    }
+
+    .brand-title {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-weight: 800;
+      font-size: clamp(0.84rem, 2.8vw, 1rem);
+      letter-spacing: -0.01em;
+      display: block;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .brand-sub {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.63rem;
+      color: var(--brand-cyan);
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      display: block;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .topbar-actions {
+      display: flex;
+      align-items: center;
+      gap: 0.38rem;
+      flex-shrink: 0;
+    }
+
+    .doc-status-indicator {
+      display: none;
+      align-items: center;
+      gap: 0.45rem;
+      padding: 0.42rem 0.75rem;
+      border-radius: 12px;
+      background: var(--bg-elevated);
+      border: 1px solid var(--border-subtle);
+      font-size: 0.75rem;
+      color: var(--text-secondary);
+      max-width: 210px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .doc-status-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--brand-emerald);
+      box-shadow: 0 0 8px var(--brand-emerald);
+      flex-shrink: 0;
+    }
+
+    /* Buscador Inteligente Expandible en Móvil y Fijo en Escritorio */
+    .search-drawer-row {
+      display: none;
+      width: 100%;
+    }
+
+    .search-drawer-row.open {
+      display: block;
+    }
+
+    .search-wrapper {
+      position: relative;
+      display: flex;
+      align-items: center;
+      width: 100%;
+    }
+
+    .search-input {
+      width: 100%;
+      min-height: 46px;
+      padding: 0.55rem 5.2rem 0.55rem 2.4rem;
+      border-radius: 14px;
+      border: 1px solid var(--border-subtle);
+      background: var(--bg-elevated);
+      color: var(--text-primary);
+      font-size: 0.9rem;
+      transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .search-input:focus {
+      outline: none;
+      border-color: var(--brand-cyan);
+      box-shadow: 0 0 0 3px rgba(6, 182, 212, 0.18);
+    }
+
+    .search-icon {
+      position: absolute;
+      left: 0.85rem;
+      font-size: 0.92rem;
+      color: var(--text-muted);
+      pointer-events: none;
+    }
+
+    .search-count-badge {
+      position: absolute;
+      right: 0.75rem;
+      font-size: 0.7rem;
+      font-family: 'JetBrains Mono', monospace;
+      color: var(--brand-cyan);
+      pointer-events: none;
+    }
+
+    /* ==========================================================================
+       5. ESTRUCTURA PRINCIPAL MOBILE-FIRST (1 COLUMNA MÓVIL -> SIDEBAR EN DESKTOP)
+       ========================================================================== */
+    .app-layout {
+      display: block;
+      width: 100%;
+      max-width: 100%;
+    }
+
+    /* En móvil el sidebar se oculta porque usamos Bottom Navigation + Bottom Sheet */
+    .sidebar {
+      display: none;
+      background: var(--bg-surface);
+      border-right: 1px solid var(--border-subtle);
+      padding: 1.15rem 0.95rem;
+      flex-direction: column;
+      gap: 1.2rem;
+    }
+
+    .sidebar-group-title {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.68rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--text-muted);
+      padding: 0 0.45rem;
+      margin-bottom: 0.4rem;
+    }
+
+    .nav-menu {
+      display: flex;
+      flex-direction: column;
+      gap: 0.3rem;
+    }
+
+    .nav-btn {
+      width: 100%;
+      min-height: 48px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.6rem;
+      padding: 0.65rem 0.85rem;
+      border-radius: 12px;
+      border: 1px solid transparent;
+      background: transparent;
+      color: var(--text-secondary);
+      font-size: 0.86rem;
+      font-weight: 600;
+      text-align: left;
+      cursor: pointer;
+      transition: all 0.16s ease;
+    }
+
+    .nav-btn:hover {
+      background: var(--bg-elevated);
+      color: var(--text-primary);
+    }
+
+    .nav-btn.active {
+      background: var(--brand-gradient);
+      color: #ffffff;
+      box-shadow: var(--neon-shadow);
+    }
+
+    .main-viewport {
+      width: 100%;
+      max-width: 1320px;
+      margin: 0 auto;
+      padding: 0.75rem calc(var(--safe-right) + 0.75rem) calc(var(--bottom-nav-height) + var(--safe-bottom) + 6.2rem) calc(var(--safe-left) + 0.75rem);
+    }
+
+    /* ==========================================================================
+       6. TARJETAS GLASSMORPHISM Y ESTADÍSTICAS ULTRA COMPACTAS EN MÓVIL
+       ========================================================================== */
+    .glass-card {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      border-radius: 18px;
+      padding: 1rem;
+      box-shadow: var(--surface-glow);
+      margin-bottom: 0.9rem;
+      max-width: 100%;
+      overflow: hidden;
+    }
+
+    /* En móvil: Carrusel horizontal deslizable para no robar espacio vertical al lector */
+    .stats-bar {
+      display: grid;
+      grid-auto-flow: column;
+      grid-auto-columns: minmax(132px, 1fr);
+      gap: 0.6rem;
+      overflow-x: auto;
+      overscroll-behavior-x: contain;
+      scrollbar-width: none;
+      padding-bottom: 0.25rem;
+      margin-bottom: 0.85rem;
+    }
+
+    .stats-bar::-webkit-scrollbar {
+      display: none;
+    }
+
+    .stat-tile {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      border-radius: 15px;
+      padding: 0.7rem 0.85rem;
+      box-shadow: var(--surface-glow);
+      display: flex;
+      flex-direction: column;
+      gap: 0.15rem;
+      min-width: 0;
+    }
+
+    .stat-label {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.64rem;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .stat-value {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 1.15rem;
+      font-weight: 800;
+      font-variant-numeric: tabular-nums;
+      color: var(--text-primary);
+    }
+
+    .stat-meta {
+      font-size: 0.68rem;
+      color: var(--text-secondary);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    /* ==========================================================================
+       7. LECTOR INTELIGENTE, BARRA FLOTANTE DE HERRAMIENTAS Y VISOR SINCRONIZADO
+       ========================================================================== */
+    .upload-dropzone {
+      border: 1.5px dashed var(--border-neon);
+      background: rgba(59, 130, 246, 0.06);
+      border-radius: 16px;
+      padding: 0.85rem 1rem;
+      text-align: center;
+      cursor: pointer;
+      margin-bottom: 0.85rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.75rem;
+      flex-wrap: wrap;
+      transition: background-color 0.2s ease;
+    }
+
+    .upload-dropzone:hover {
+      background: rgba(6, 182, 212, 0.1);
+    }
+
+    .reader-command-deck {
+      background: var(--bg-glass-heavy);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      border: 1px solid var(--border-neon);
+      border-radius: 18px;
+      padding: 0.85rem;
+      margin-bottom: 0.85rem;
+      box-shadow: var(--surface-glow);
+    }
+
+    .deck-primary-controls {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 0.45rem;
+    }
+
+    .deck-transport-strip {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 0.35rem;
+      margin-top: 0.5rem;
+    }
+
+    .deck-advanced-drawer {
+      display: none;
+      margin-top: 0.7rem;
+      padding-top: 0.7rem;
+      border-top: 1px solid var(--border-subtle);
+      grid-template-columns: 1fr;
+      gap: 0.6rem;
+    }
+
+    .deck-advanced-drawer.open {
+      display: grid;
+    }
+
+    .control-select, .control-range {
+      min-height: 44px;
+      padding: 0.45rem 0.65rem;
+      border-radius: 11px;
+      border: 1px solid var(--border-subtle);
+      background: var(--bg-elevated);
+      color: var(--text-primary);
+      font-size: 0.82rem;
+      width: 100%;
+    }
+
+    .progress-Interactive-track {
+      width: 100%;
+      height: 12px;
+      border-radius: 999px;
+      background: var(--bg-elevated);
+      border: 1px solid var(--border-subtle);
+      overflow: hidden;
+      cursor: pointer;
+      margin-top: 0.65rem;
+      touch-action: none;
+    }
+
+    .progress-Interactive-fill {
+      height: 100%;
+      width: 0%;
+      background: var(--brand-gradient);
+      transition: width 0.18s linear;
+    }
+
+    /* Navegador rápido de páginas con chips táctiles */
+    .page-jump-bar {
+      display: flex;
+      gap: 0.45rem;
+      overflow-x: auto;
+      overscroll-behavior-x: contain;
+      scrollbar-width: none;
+      padding-bottom: 0.35rem;
+      margin-bottom: 0.65rem;
+    }
+
+    .page-jump-bar::-webkit-scrollbar {
+      display: none;
+    }
+
+    /* VISOR DE DOCUMENTO OPTIMIZADO PARA LECTURA MÓVIL */
+    .reader-viewport {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      border-radius: 20px;
+      padding: 1.1rem 0.95rem;
+      font-size: var(--reader-font-size);
+      line-height: var(--reader-line-height);
+      letter-spacing: var(--reader-letter-spacing);
+      box-shadow: var(--surface-glow);
+      overflow-wrap: break-word;
+      word-break: break-word;
+      max-width: 100%;
+    }
+
+    .doc-page-block {
+      padding-bottom: 1.35rem;
+      margin-bottom: 1.35rem;
+      border-bottom: 1px dashed var(--border-subtle);
+      content-visibility: auto;
+      contain-intrinsic-size: 320px;
+    }
+
+    .doc-page-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.72rem;
+      color: var(--text-muted);
+      margin-bottom: 0.75rem;
+      padding-bottom: 0.4rem;
+      border-bottom: 1px solid var(--border-subtle);
+    }
+
+    /* Párrafo sincronizado táctil */
+    .sync-paragraph {
+      padding: 0.75rem 0.8rem;
+      margin-bottom: 0.65rem;
+      border-radius: 14px;
+      border: 1px solid transparent;
+      transition: background-color 0.16s ease, border-color 0.16s ease;
+      cursor: pointer;
+    }
+
+    .sync-paragraph.active-paragraph {
+      background: var(--hl-paragraph-bg);
+      border-color: var(--hl-paragraph-border);
+      box-shadow: 0 4px 16px rgba(6, 182, 212, 0.1);
+    }
+
+    .para-meta {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 0.4rem;
+      flex-wrap: wrap;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.66rem;
+      color: var(--text-muted);
+      margin-bottom: 0.3rem;
+    }
+
+    .sync-sentence {
+      border-radius: 6px;
+      padding: 2px 3px;
+      transition: background-color 0.14s ease;
+    }
+
+    .sync-sentence.active-sentence {
+      background: var(--hl-sentence-bg);
+      border-bottom: 2px solid var(--hl-sentence-border);
+    }
+
+    body.light-theme .sync-sentence.active-sentence,
+    body.sepia-theme .sync-sentence.active-sentence {
+      color: #0F172A;
+    }
+
+    .sync-word {
+      border-radius: 4px;
+      padding: 0 2px;
+    }
+
+    .sync-word.active-word {
+      background: var(--hl-word-bg) !important;
+      color: var(--hl-word-text) !important;
+      font-weight: 700;
+      box-shadow: 0 0 8px rgba(255, 213, 79, 0.7);
+    }
+
+    /* ==========================================================================
+       8. MÓDULOS DE ESTUDIO RESPONSIVE (100% COMPATIBLES CON 320PX)
+       ========================================================================== */
+    .module-section {
+      display: none;
+    }
+
+    .module-section.active {
+      display: block;
+      animation: fadeSlideIn 0.2s ease;
+    }
+
+    @keyframes fadeSlideIn {
+      from { opacity: 0; transform: translateY(4px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* minmax(min(100%, 260px), 1fr) evita cualquier desbordamiento en 320px */
+    .grid-cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr));
+      gap: 0.85rem;
+    }
+
+    .flashcard-stage {
+      min-height: 230px;
+      border-radius: 20px;
+      border: 1px solid var(--border-neon);
+      background: linear-gradient(145deg, var(--bg-surface), var(--bg-elevated));
+      padding: 1.5rem 1.15rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      cursor: pointer;
+      box-shadow: var(--surface-glow);
+      user-select: none;
+    }
+
+    .quiz-option {
+      width: 100%;
+      min-height: 48px;
+      text-align: left;
+      padding: 0.75rem 0.95rem;
+      margin-top: 0.45rem;
+      border-radius: 12px;
+      border: 1px solid var(--border-subtle);
+      background: var(--bg-elevated);
+      color: var(--text-primary);
+      font-family: inherit;
+      font-size: 0.86rem;
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+
+    .quiz-option.correct {
+      background: rgba(16, 185, 129, 0.18);
+      border-color: var(--brand-emerald);
+      font-weight: 700;
+    }
+
+    .quiz-option.wrong {
+      background: rgba(244, 63, 94, 0.18);
+      border-color: var(--brand-rose);
+    }
+
+    .mindmap-tree {
+      display: flex;
+      flex-direction: column;
+      gap: 0.85rem;
+    }
+
+    .mindmap-root {
+      padding: 0.95rem 1.1rem;
+      border-radius: 16px;
+      background: var(--brand-gradient);
+      color: #fff;
+      font-weight: 800;
+      font-size: 0.98rem;
+      box-shadow: var(--neon-shadow);
+    }
+
+    .mindmap-branches {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(min(100%, 245px), 1fr));
+      gap: 0.8rem;
+    }
+
+    .mindmap-node {
+      background: var(--bg-elevated);
+      border: 1px solid var(--border-neon);
+      border-radius: 15px;
+      padding: 0.95rem;
+    }
+
+    /* ==========================================================================
+       9. BOTTOM NAVIGATION FIJA PARA EL PULGAR (MOBILE-FIRST NATIVA)
+       ========================================================================== */
+    .bottom-nav {
+      position: fixed;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      z-index: 9000;
+      height: calc(var(--bottom-nav-height) + var(--safe-bottom));
+      padding: 0.3rem calc(var(--safe-right) + 0.35rem) var(--safe-bottom) calc(var(--safe-left) + 0.35rem);
+      background: var(--bg-glass-heavy);
+      backdrop-filter: blur(22px);
+      -webkit-backdrop-filter: blur(22px);
+      border-top: 1px solid var(--border-subtle);
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      align-items: center;
+      gap: 0.2rem;
+    }
+
+    .bottom-nav-item {
+      height: 54px;
+      border-radius: 14px;
+      border: none;
+      background: transparent;
+      color: var(--text-secondary);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 0.15rem;
+      cursor: pointer;
+      touch-action: manipulation;
+      font-family: inherit;
+      transition: color 0.16s ease, background-color 0.16s ease, transform 0.14s ease;
+    }
+
+    .bottom-nav-item:active {
+      transform: scale(0.94);
+    }
+
+    .bottom-nav-item .bnav-icon {
+      font-size: 1.22rem;
+      line-height: 1;
+    }
+
+    .bottom-nav-item .bnav-label {
+      font-size: 0.65rem;
+      font-weight: 700;
+      letter-spacing: -0.01em;
+      white-space: nowrap;
+    }
+
+    .bottom-nav-item.active {
+      color: #ffffff;
+      background: var(--brand-gradient);
+      box-shadow: 0 4px 14px rgba(37, 99, 235, 0.38);
+    }
+
+    /* ==========================================================================
+       10. BOTTOM SHEET NATIVO (MENÚ DE MÓDULOS, ACCESIBILIDAD, EXPORTACIÓN Y PWA)
+       ========================================================================== */
+    .bottom-sheet-backdrop {
+      position: fixed;
+      inset: 0;
+      z-index: 9600;
+      background: rgba(3, 7, 18, 0.66);
+      backdrop-filter: blur(6px);
+      -webkit-backdrop-filter: blur(6px);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.24s ease;
+    }
+
+    .bottom-sheet-backdrop.open {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .bottom-sheet {
+      position: fixed;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      z-index: 9700;
+      max-height: 84dvh;
+      overflow-y: auto;
+      background: var(--bg-surface);
+      border-top: 1px solid var(--border-neon);
+      border-radius: 26px 26px 0 0;
+      padding: 0.6rem 1.1rem calc(var(--safe-bottom) + 1.4rem) 1.1rem;
+      box-shadow: 0 -16px 44px rgba(0, 0, 0, 0.65);
+      transform: translateY(105%);
+      transition: transform 0.28s cubic-bezier(0.22, 1, 0.36, 1);
+      will-change: transform;
+    }
+
+    .bottom-sheet.open {
+      transform: translateY(0);
+    }
+
+    .sheet-grab-handle {
+      width: 44px;
+      height: 5px;
+      border-radius: 999px;
+      background: var(--text-muted);
+      opacity: 0.45;
+      margin: 0.35rem auto 0.85rem auto;
+    }
+
+    /* ==========================================================================
+       11. MINI REPRODUCTOR FLOTANTE SIEMPRE VISIBLE (SOBRE EL BOTTOM NAV)
+       ========================================================================== */
+    .floating-player-Dock {
+      position: fixed;
+      right: calc(var(--safe-right) + 12px);
+      bottom: calc(var(--bottom-nav-height) + var(--safe-bottom) + 12px);
+      z-index: 9400;
+    }
+
+    body.immersive-mode .floating-player-Dock {
+      bottom: calc(var(--safe-bottom) + 16px);
+    }
+
+    .fab-player-trigger {
+      min-width: 56px;
+      min-height: 56px;
+      padding: 0 1rem;
+      border-radius: 999px;
+      border: 1px solid rgba(255, 255, 255, 0.24);
+      background: var(--brand-gradient);
+      color: #ffffff;
+      font-size: 0.85rem;
+      font-weight: 700;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.45rem;
+      cursor: pointer;
+      box-shadow: 0 12px 28px rgba(37, 99, 235, 0.5), 0 0 18px rgba(6, 182, 212, 0.4);
+      transition: transform 0.2s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    .fab-player-trigger:active {
+      transform: scale(0.95);
+    }
+
+    .floating-player-panel {
+      position: fixed;
+      left: 10px;
+      right: 10px;
+      bottom: calc(var(--bottom-nav-height) + var(--safe-bottom) + 76px);
+      max-width: 410px;
+      margin-left: auto;
+      background: var(--bg-glass-heavy);
+      backdrop-filter: blur(24px);
+      -webkit-backdrop-filter: blur(24px);
+      border: 1px solid var(--border-neon);
+      border-radius: 22px;
+      padding: 1rem;
+      box-shadow: var(--surface-glow);
+      transform-origin: bottom right;
+      transform: scale(0.9) translateY(16px);
+      opacity: 0;
+      pointer-events: none;
+      transition: transform 0.24s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.2s ease;
+    }
+
+    .floating-player-Dock.open .floating-player-panel {
+      transform: scale(1) translateY(0);
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .fp-grid-btns {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 0.35rem;
+      margin: 0.6rem 0;
+    }
+
+    .memory-resume-bar {
+      display: none;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.75rem;
+      flex-wrap: wrap;
+      padding: 0.85rem 1rem;
+      border-radius: 16px;
+      background: linear-gradient(135deg, rgba(37, 99, 235, 0.18), rgba(124, 58, 237, 0.16));
+      border: 1px solid var(--border-neon);
+      margin-bottom: 0.85rem;
+    }
+
+    /* ==========================================================================
+       12. MEDIA QUERIES AVANZADAS (320px, 360px, 375px, 390px, 412px, 430px, TABLETS, DESKTOP)
+       ========================================================================== */
+    /* Micro-pantallas: 320px - 360px */
+    @media (max-width: 360px) {
+      .main-viewport {
+        padding-left: 0.5rem;
+        padding-right: 0.5rem;
+      }
+      .reader-viewport {
+        padding: 0.85rem 0.7rem;
+      }
+      .btn {
+        padding: 0.45rem 0.65rem;
+        font-size: 0.78rem;
+      }
+      .bottom-nav-item .bnav-label {
+        font-size: 0.6rem;
+      }
+    }
+
+    /* Smartphones medianos y grandes: 390px - 430px+ */
+    @media (min-width: 390px) {
+      .reader-viewport {
+        padding: 1.25rem 1.15rem;
+      }
+    }
+
+    /* Tablets (768px+): Buscador visible siempre y estadísticas en cuadrícula */
+    @media (min-width: 768px) {
+      .topbar {
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+        padding: calc(var(--safe-top) + 0.6rem) 1.25rem 0.6rem 1.25rem;
+      }
+      .brand-lockup {
+        flex: initial;
+      }
+      .search-drawer-row {
+        display: block !important;
+        max-width: 340px;
+        flex: 1;
+      }
+      #mobileSearchToggleBtn {
+        display: none;
+      }
+      .doc-status-indicator {
+        display: inline-flex;
+      }
+      .stats-bar {
+        grid-auto-flow: row;
+        grid-template-columns: repeat(3, 1fr);
+      }
+      .deck-primary-controls {
+        grid-template-columns: repeat(4, auto);
+        justify-content: flex-start;
+      }
+      .deck-advanced-drawer {
+        display: grid !important;
+        grid-template-columns: 2fr 1fr 1.2fr;
+        align-items: center;
+      }
+      #toggleDeckSettingsBtn {
+        display: none;
+      }
+      .reader-viewport {
+        padding: 1.75rem 2rem;
+      }
+    }
+
+    /* Desktop / Laptops (1024px+): Sidebar lateral fijo y ocultación de Bottom Nav */
+    @media (min-width: 1024px) {
+      .app-layout {
+        display: grid;
+        grid-template-columns: 276px minmax(0, 1fr);
+        min-height: calc(100dvh - 68px);
+      }
+      .sidebar {
+        display: flex;
+      }
+      .bottom-nav {
+        display: none;
+      }
+      .main-viewport {
+        padding: 1.4rem 1.8rem 6rem 1.8rem;
+      }
+      .stats-bar {
+        grid-template-columns: repeat(6, 1fr);
+      }
+      .floating-player-Dock {
+        right: 24px;
+        bottom: 24px;
+      }
+      .floating-player-panel {
+        position: absolute;
+        left: auto;
+        right: 0;
+        bottom: 68px;
+        width: 370px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Enlace de accesibilidad para saltar directo al lector -->
+  <a href="#readerViewport" class="skip-link">Saltar al Visor de Documento</a>
+
+  <!-- BARRA DE PROGRESO SUPERIOR -->
+  <div class="top-progress-line" aria-hidden="true">
+    <div id="topProgressFill" class="top-progress-fill"></div>
+  </div>
+
+  <!-- INDICADOR DE MODO OFFLINE PWA -->
+  <div id="offlineBanner" class="offline-banner" role="status" aria-live="polite">
+    <span>⚡ Modo Sin Conexión Activo — Trabajando con caché local PWA</span>
+  </div>
+
+  <!-- 1. BARRA SUPERIOR ADAPTATIVA -->
+  <header class="topbar" role="banner">
+    <div class="topbar-main-row">
+      <!-- Logo JAIRRESTAURA IA -->
+      <a href="#lector" class="brand-lockup" onclick="event.preventDefault(); switchModule('lector');" aria-label="JAIRRESTAURA LECTOR IA Inicio">
+        <div class="brand-orb" aria-hidden="true">📖</div>
+        <div class="brand-text-wrap">
+          <span class="brand-title">JAIRRESTAURA LECTOR IA</span>
+          <span class="brand-sub">MOBILE-FIRST · PWA SYNC</span>
+        </div>
+      </a>
+
+      <!-- Acciones Rápidas Táctiles (Mínimo 48x48px) -->
+      <div class="topbar-actions">
+        <div class="doc-status-indicator" title="Documento activo cargado en memoria">
+          <span class="doc-status-dot" aria-hidden="true"></span>
+          <span id="loadedDocIndicator">Cargando...</span>
+        </div>
+
+        <!-- Botón de Instalación Nativa PWA -->
+        <button
+          type="button"
+          id="pwaInstallBtn"
+          class="btn btn-soft"
+          style="display:none;"
+          onclick="triggerPWAInstall()"
+          aria-label="Instalar aplicación en pantalla principal"
+          title="Instalar App PWA"
+        >
+          📲 <span class="hide-xs">Instalar App</span>
+        </button>
+
+        <!-- Botón Buscador Móvil -->
+        <button
+          type="button"
+          id="mobileSearchToggleBtn"
+          class="btn btn-icon-only"
+          onclick="toggleMobileSearchDrawer()"
+          aria-label="Abrir buscador inteligente"
+          aria-expanded="false"
+        >
+          🔍
+        </button>
+
+        <!-- Botón Modo Inmersivo -->
+        <button
+          type="button"
+          id="immersiveToggleBtn"
+          class="btn btn-icon-only"
+          onclick="toggleImmersiveMode()"
+          aria-label="Alternar modo lectura inmersiva a pantalla completa"
+          title="Modo Lectura Inmersiva"
+        >
+          ⛶
+        </button>
+
+        <!-- Botón Leer Todo -->
+        <button
+          type="button"
+          class="btn btn-primary"
+          onclick="startReadingFullDocument()"
+          aria-label="Leer documento completo en voz alta"
+        >
+          🔊 <span>Leer</span>
+        </button>
+
+        <!-- Selector Tema Claro/Oscuro -->
+        <button
+          type="button"
+          class="btn btn-icon-only"
+          id="themeToggleBtn"
+          onclick="toggleThemeMode()"
+          aria-label="Cambiar entre tema oscuro y tema claro"
+          title="Alternar tema claro/oscuro"
+        >
+          ☀️
+        </button>
+      </div>
+    </div>
+
+    <!-- Buscador Inteligente con Navegación de Coincidencias -->
+    <div id="searchDrawerRow" class="search-drawer-row">
+      <div class="search-wrapper">
+        <span class="search-icon" aria-hidden="true">🔍</span>
+        <input
+          type="search"
+          id="globalSearchInput"
+          class="search-input"
+          placeholder="Buscar palabra, concepto o frase en el documento..."
+          oninput="handleGlobalSearch(this.value)"
+          aria-label="Buscar en el documento"
+        />
+        <span id="searchMatchCount" class="search-count-badge" aria-live="polite"></span>
+      </div>
+    </div>
+  </header>
+
+  <!-- CONTENEDOR PRINCIPAL -->
+  <div class="app-layout">
+    <!-- 2. MENÚ LATERAL (VISIBLE EN DESKTOP >= 1024px) -->
+    <aside class="sidebar" aria-label="Menú principal de escritorio">
+      <div>
+        <div class="sidebar-group-title">Cargar Documento</div>
+        <label class="btn btn-primary" style="width:100%; cursor:pointer;">
+          📂 Subir PDF / DOCX / EPUB
+          <input
+            type="file"
+            id="fileUploader"
+            accept=".pdf,.docx,.txt,.md,.epub"
+            style="display:none;"
+            onchange="handleFileInputChange(event)"
+          />
+        </label>
+      </div>
+
+      <div>
+        <div class="sidebar-group-title">Módulos de Estudio</div>
+        <nav class="nav-menu" id="sidebarNav" aria-label="Navegación de módulos">
+          <button type="button" class="nav-btn active" data-module="lector" onclick="switchModule('lector')">
+            <span>📖 Lector Inteligente</span>
+          </button>
+          <button type="button" class="nav-btn" data-module="resumen" onclick="switchModule('resumen')">
+            <span>📝 Resumen IA</span>
+          </button>
+          <button type="button" class="nav-btn" data-module="conceptos" onclick="switchModule('conceptos')">
+            <span>💡 Conceptos Clave</span>
+          </button>
+          <button type="button" class="nav-btn" data-module="cuestionario" onclick="switchModule('cuestionario')">
+            <span>✅ Cuestionario</span>
+          </button>
+          <button type="button" class="nav-btn" data-module="flashcards" onclick="switchModule('flashcards')">
+            <span>🃏 Flashcards</span>
+          </button>
+          <button type="button" class="nav-btn" data-module="mapa" onclick="switchModule('mapa')">
+            <span>🕸️ Mapa Mental</span>
+          </button>
+          <button type="button" class="nav-btn" data-module="biblioteca" onclick="switchModule('biblioteca')">
+            <span>📚 Biblioteca</span>
+          </button>
+        </nav>
+      </div>
+
+      <!-- Accesibilidad Rápida -->
+      <div>
+        <div class="sidebar-group-title">Accesibilidad y Lectura</div>
+        <div style="display:flex; flex-direction:column; gap:0.4rem;">
+          <button type="button" class="btn" id="btnContrast" onclick="toggleAccessibility('highContrast')">
+            👁️ Alto Contraste
+          </button>
+          <button type="button" class="btn" id="btnSepia" onclick="toggleAccessibility('sepiaTheme')">
+            📜 Fondo Sepia
+          </button>
+          <button type="button" class="btn" id="btnLargeFont" onclick="toggleAccessibility('largeFont')">
+            🔠 Fuente Grande
+          </button>
+          <button type="button" class="btn" id="btnWideSpacing" onclick="toggleAccessibility('wideSpacing')">
+            ↔️ Espaciado Amplio
+          </button>
+          <button type="button" class="btn" id="btnDyslexia" onclick="toggleAccessibility('dyslexia')">
+            🔤 Modo Dislexia
+          </button>
+          <button type="button" class="btn" id="btnAutoRead" onclick="toggleAccessibility('autoRead')">
+            ⚡ Lectura Automática: OFF
+          </button>
+        </div>
+      </div>
+
+      <!-- Exportación Directa -->
+      <div>
+        <div class="sidebar-group-title">Exportar Estudio</div>
+        <div style="display:grid; grid-template-columns:1fr 1fr; gap:0.4rem;">
+          <button type="button" class="btn" onclick="exportCurrentDocument('pdf')">📄 PDF</button>
+          <button type="button" class="btn" onclick="exportCurrentDocument('word')">📘 Word</button>
+          <button type="button" class="btn" onclick="exportCurrentDocument('md')">📝 MD</button>
+          <button type="button" class="btn" onclick="exportCurrentDocument('txt')">📃 TXT</button>
+        </div>
+      </div>
+    </aside>
+
+    <!-- 3. ÁREA PRINCIPAL -->
+    <main class="main-viewport" role="main">
+
+      <!-- Botón flotante para salir del modo inmersivo cuando está activo -->
+      <div id="exitImmersiveBanner" style="display:none; justify-content:space-between; align-items:center; margin-bottom:0.75rem;" class="glass-card">
+        <span class="font-mono" style="font-size:0.78rem; color:var(--brand-cyan);">📖 MODO LECTURA INMERSIVA ACTIVO</span>
+        <button type="button" class="btn btn-soft" onclick="toggleImmersiveMode()">✕ Salir de Pantalla Completa</button>
+      </div>
+
+      <!-- Banner de Memoria (localStorage): ¿Desea continuar donde quedó? -->
+      <div id="memoryResumeBar" class="memory-resume-bar" role="region" aria-label="Continuar lectura guardada">
+        <div>
+          <strong style="font-size:0.9rem;">💾 ¿Desea continuar donde quedó?</strong>
+          <p id="memoryResumeText" style="font-size:0.78rem; color:var(--text-secondary);"></p>
+        </div>
+        <div style="display:flex; gap:0.45rem; flex-wrap:wrap;">
+          <button type="button" class="btn btn-primary" onclick="resumeFromSavedMemory()">▶ Continuar lectura</button>
+          <button type="button" class="btn" onclick="dismissSavedMemoryBanner()">Reiniciar</button>
+        </div>
+      </div>
+
+      <!-- ESTADÍSTICAS GLOBALES EN TIEMPO REAL (DESLIZABLES EN MÓVIL) -->
+      <section class="stats-bar" aria-label="Estadísticas del documento y progreso de lectura">
+        <div class="stat-tile">
+          <span class="stat-label">Progreso Total</span>
+          <span class="stat-value font-mono" id="statProgressPercent">0%</span>
+          <span class="stat-meta" id="statReaderState">Listo para leer</span>
+        </div>
+        <div class="stat-tile">
+          <span class="stat-label">Páginas</span>
+          <span class="stat-value" id="statPages">1</span>
+          <span class="stat-meta" id="statCurrentPageLabel">Página actual: 1</span>
+        </div>
+        <div class="stat-tile">
+          <span class="stat-label">Párrafos</span>
+          <span class="stat-value" id="statParagraphs">0</span>
+          <span class="stat-meta" id="statCurrentParaLabel">Párrafo actual: 1</span>
+        </div>
+        <div class="stat-tile">
+          <span class="stat-label">Tiempo Leído</span>
+          <span class="stat-value font-mono" id="statTimeElapsed">00:00</span>
+          <span class="stat-meta">Sesión activa</span>
+        </div>
+        <div class="stat-tile">
+          <span class="stat-label">Tiempo Restante</span>
+          <span class="stat-value font-mono" id="statTimeRemaining">00:00</span>
+          <span class="stat-meta" id="statTotalEstLabel">Total est.: 00:00</span>
+        </div>
+        <div class="stat-tile">
+          <span class="stat-label">Palabras</span>
+          <span class="stat-value" id="statWords">0</span>
+          <span class="stat-meta" id="statFormatLabel">Formato: PDF</span>
+        </div>
+      </section>
+
+      <!-- ====================================================================
+           MÓDULO 1: LECTOR INTELIGENTE (VISOR DE DOCUMENTO Y SINCRONIZACIÓN)
+           ==================================================================== -->
+      <section id="mod-lector" class="module-section active" aria-label="Visor de Documento y Lector Inteligente">
+
+        <!-- Barra compacta de carga de archivos -->
+        <div
+          id="dropzoneBox"
+          class="upload-dropzone"
+          onclick="document.getElementById('fileUploader').click()"
+          role="button"
+          tabindex="0"
+          aria-label="Subir documento PDF, DOCX, EPUB, Markdown o TXT"
+          onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();document.getElementById('fileUploader').click();}"
+        >
+          <div style="text-align:left;">
+            <p style="font-weight:700; font-size:0.88rem;">
+              📥 Cargar documento <strong>PDF, DOCX, EPUB, MD o TXT</strong>
+            </p>
+            <p style="font-size:0.74rem; color:var(--text-secondary);">
+              Toca aquí o arrastra tu archivo · Procesamiento instantáneo en tu dispositivo
+            </p>
+          </div>
+          <span class="btn btn-soft" style="min-height:42px; padding:0.4rem 0.8rem; font-size:0.78rem;">📂 Explorar</span>
+        </div>
+
+        <!-- Barra de Herramientas del Lector Inteligente -->
+        <div class="reader-command-deck" role="region" aria-label="Controles de reproducción y voz">
+          <div class="deck-primary-controls">
+            <button type="button" class="btn btn-primary" onclick="startReadingFullDocument()">
+              🔊 Leer Documento
+            </button>
+            <button type="button" class="btn btn-soft" onclick="playFromCurrentPosition()">
+              ▶ Desde Aquí
+            </button>
+            <button type="button" class="btn btn-soft" id="autoScrollBtn" onclick="toggleAutoScroll()">
+              🎯 Seguir Lectura: ON
+            </button>
+            <button type="button" class="btn" id="toggleDeckSettingsBtn" onclick="toggleDeckSettings()">
+              ⚙️ Voz y Velocidad
+            </button>
+          </div>
+
+          <!-- Controles de transporte táctiles (48x48px mínimo) -->
+          <div class="deck-transport-strip">
+            <button type="button" class="btn" onclick="stepParagraph(-1)" aria-label="Retroceder párrafo" title="Retroceder párrafo">⏮</button>
+            <button type="button" class="btn btn-primary" onclick="playFromCurrentPosition()" aria-label="Reproducir" title="Reproducir">▶</button>
+            <button type="button" class="btn" onclick="pauseSpeechReading()" aria-label="Pausar" title="Pausar">⏸</button>
+            <button type="button" class="btn btn-danger" onclick="stopSpeechReading()" aria-label="Detener" title="Detener">⏹</button>
+            <button type="button" class="btn" onclick="stepParagraph(1)" aria-label="Avanzar párrafo" title="Avanzar párrafo">⏭</button>
+          </div>
+
+          <!-- Panel desplegable en móvil / fijo en tablet+ para Voz, Velocidad y Volumen -->
+          <div id="deckAdvancedDrawer" class="deck-advanced-drawer">
+            <div>
+              <label for="voiceSelectMain" class="stat-label" style="display:block; margin-bottom:0.2rem;">Voz en Español / Sistema</label>
+              <select id="voiceSelectMain" class="control-select" onchange="changeSelectedVoice(this.value)">
+                <option value="">Cargando voces del dispositivo...</option>
+              </select>
+            </div>
+
+            <div>
+              <label for="rateSelectMain" class="stat-label" style="display:block; margin-bottom:0.2rem;">Velocidad</label>
+              <select id="rateSelectMain" class="control-select font-mono" onchange="changeSpeechRate(this.value)">
+                <option value="0.5">0.5x</option>
+                <option value="0.75">0.75x</option>
+                <option value="1" selected>1.0x</option>
+                <option value="1.25">1.25x</option>
+                <option value="1.5">1.5x</option>
+                <option value="2">2.0x</option>
+              </select>
+            </div>
+
+            <div>
+              <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:0.2rem;">
+                <label for="volumeSliderMain" class="stat-label">Volumen</label>
+                <span id="volumeValueLabel" class="font-mono" style="font-size:0.74rem; color:var(--brand-cyan);">100%</span>
+              </div>
+              <input
+                type="range"
+                id="volumeSliderMain"
+                class="control-range"
+                min="0"
+                max="1"
+                step="0.05"
+                value="1"
+                oninput="changeSpeechVolume(this.value)"
+              />
+            </div>
+          </div>
+
+          <!-- Barra de progreso interactiva táctil -->
+          <div
+            class="progress-Interactive-track"
+            onclick="seekReadingByProgressBar(event)"
+            role="slider"
+            aria-label="Progreso de lectura del documento"
+            aria-valuemin="0"
+            aria-valuemax="100"
+            aria-valuenow="0"
+            id="mainProgressSlider"
+            title="Toca para saltar a cualquier punto del documento"
+          >
+            <div id="mainProgressFill" class="progress-Interactive-fill"></div>
+          </div>
+        </div>
+
+        <!-- Navegador rápido por páginas / capítulos -->
+        <nav id="pageJumpBar" class="page-jump-bar" aria-label="Navegación rápida por páginas"></nav>
+
+        <!-- ZONA CENTRAL: VISOR DE DOCUMENTO -->
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:0.45rem; padding:0 0.2rem;">
+          <span class="stat-label" style="color:var(--brand-cyan);">📖 VISOR DE DOCUMENTO SINCRONIZADO</span>
+          <span class="stat-meta">Toca cualquier frase o párrafo para escuchar</span>
+        </div>
+        <div id="readerViewport" class="reader-viewport" role="region" aria-label="Visor de documento interactivo"></div>
+      </section>
+
+      <!-- ====================================================================
+           MÓDULO 2: RESUMEN IA (CORTO, DETALLADO E IDEAS PRINCIPALES)
+           ==================================================================== -->
+      <section id="mod-resumen" class="module-section" aria-label="Resumen Inteligente">
+        <div class="glass-card">
+          <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:0.6rem; margin-bottom:1rem;">
+            <div>
+              <h2>📝 Resumen Inteligente del Documento</h2>
+              <p style="font-size:0.84rem; color:var(--text-secondary);">Síntesis estructurada en tres niveles de profundidad.</p>
+            </div>
+            <button type="button" class="btn btn-primary" onclick="speakCustomText(getSummarySpeechText())">
+              🔊 Escuchar Resumen
+            </button>
+          </div>
+
+          <div class="grid-cards" style="margin-bottom:1rem;">
+            <div class="glass-card" style="margin-bottom:0;">
+              <span class="stat-label" style="color:var(--brand-cyan);">1. Resumen Corto (Ejecutivo)</span>
+              <p id="summaryShortText" style="margin-top:0.55rem; font-size:0.93rem;"></p>
+            </div>
+            <div class="glass-card" style="margin-bottom:0;">
+              <span class="stat-label" style="color:var(--brand-cyan);">2. Resumen Detallado (Analítico)</span>
+              <p id="summaryDetailedText" style="margin-top:0.55rem; font-size:0.9rem; color:var(--text-secondary);"></p>
+            </div>
+          </div>
+
+          <div class="glass-card" style="margin-bottom:0;">
+            <span class="stat-label" style="color:var(--brand-emerald);">3. Ideas Principales Extraídas</span>
+            <ul id="summaryMainIdeasList" style="margin-top:0.65rem; padding-left:1.25rem; display:flex; flex-direction:column; gap:0.5rem;"></ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- ====================================================================
+           MÓDULO 3: CONCEPTOS CLAVE
+           ==================================================================== -->
+      <section id="mod-conceptos" class="module-section" aria-label="Conceptos Clave">
+        <div class="glass-card">
+          <div style="margin-bottom:1rem;">
+            <h2>💡 Conceptos Clave del Documento</h2>
+            <p style="font-size:0.84rem; color:var(--text-secondary);">Glosario automático extraído del contenido con lectura por voz.</p>
+          </div>
+          <div id="conceptsGrid" class="grid-cards"></div>
+        </div>
+      </section>
+
+      <!-- ====================================================================
+           MÓDULO 4: CUESTIONARIO AUTOMÁTICO
+           ==================================================================== -->
+      <section id="mod-cuestionario" class="module-section" aria-label="Cuestionario Interactivo">
+        <div class="glass-card">
+          <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:0.6rem; margin-bottom:1rem;">
+            <div>
+              <h2>✅ Cuestionario de Autoevaluación</h2>
+              <p style="font-size:0.84rem; color:var(--text-secondary);">Preguntas de Opción Múltiple y Verdadero/Falso con calificación en vivo.</p>
+            </div>
+            <div style="display:flex; align-items:center; gap:0.5rem; flex-wrap:wrap;">
+              <span id="quizFinalScoreBadge" class="btn btn-soft font-mono">Resultado: 0 / 0 (0%)</span>
+              <button type="button" class="btn" onclick="resetQuiz()">🔄 Reiniciar</button>
+            </div>
+          </div>
+          <div id="quizQuestionsContainer"></div>
+        </div>
+      </section>
+
+      <!-- ====================================================================
+           MÓDULO 5: FLASHCARDS INTERACTIVAS
+           ==================================================================== -->
+      <section id="mod-flashcards" class="module-section" aria-label="Flashcards de Estudio">
+        <div class="glass-card">
+          <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:0.5rem; margin-bottom:1rem;">
+            <div>
+              <h2>🃏 Flashcards de Repaso Activo</h2>
+              <p style="font-size:0.84rem; color:var(--text-secondary);">Toca la tarjeta para voltear entre pregunta y respuesta.</p>
+            </div>
+            <div style="display:flex; gap:0.5rem; align-items:center;">
+              <button type="button" class="btn btn-soft" onclick="speakActiveFlashcard()">🔊 Escuchar</button>
+              <span id="flashcardCounterBadge" class="font-mono" style="font-size:0.84rem;">1 / 1</span>
+            </div>
+          </div>
+
+          <div
+            class="flashcard-stage"
+            onclick="flipFlashcard()"
+            role="button"
+            tabindex="0"
+            aria-label="Tarjeta interactiva, toca para voltear"
+            onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();flipFlashcard();}"
+          >
+            <span id="flashcardRoleLabel" class="stat-label" style="color:var(--brand-cyan); margin-bottom:0.75rem;">PREGUNTA (TOCA PARA VOLTEAR)</span>
+            <h3 id="flashcardContentText" style="font-size:1.15rem; max-width:640px;"></h3>
+          </div>
+
+          <div style="display:grid; grid-template-columns:1fr 1.4fr 1fr; gap:0.5rem; margin-top:0.9rem;">
+            <button type="button" class="btn" onclick="moveFlashcard(-1)">← Anterior</button>
+            <button type="button" class="btn btn-primary" onclick="flipFlashcard()">🔄 Voltear</button>
+            <button type="button" class="btn" onclick="moveFlashcard(1)">Siguiente →</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- ====================================================================
+           MÓDULO 6: MAPA MENTAL VISUAL
+           ==================================================================== -->
+      <section id="mod-mapa" class="module-section" aria-label="Mapa Mental">
+        <div class="glass-card">
+          <div style="margin-bottom:1rem;">
+            <h2>🕸️ Mapa Mental y Esquema Visual</h2>
+            <p style="font-size:0.84rem; color:var(--text-secondary);">Estructura jerárquica generada desde los capítulos e ideas clave del documento.</p>
+          </div>
+          <div id="mindmapContainer" class="mindmap-tree"></div>
+        </div>
+      </section>
+
+      <!-- ====================================================================
+           MÓDULO 7: BIBLIOTECA PERSISTENTE
+           ==================================================================== -->
+      <section id="mod-biblioteca" class="module-section" aria-label="Biblioteca de Documentos">
+        <div class="glass-card">
+          <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:0.5rem; margin-bottom:1rem;">
+            <div>
+              <h2>📚 Biblioteca de Documentos</h2>
+              <p style="font-size:0.84rem; color:var(--text-secondary);">Guardados en memoria local para lectura offline.</p>
+            </div>
+            <button type="button" class="btn btn-primary" onclick="document.getElementById('fileUploader').click()">
+              + Subir Archivo
+            </button>
+          </div>
+          <div id="libraryGridContainer" class="grid-cards"></div>
+        </div>
+      </section>
+
+      <!-- ====================================================================
+           SECCIÓN FINAL: DESCARGAR Y COPIAR CÓDIGO / DOCUMENTO
+           ==================================================================== -->
+      <section class="glass-card" aria-label="Descargar y Copiar Código o Estudio" style="margin-top:1.25rem; border-color:var(--border-neon);">
+        <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:0.75rem; margin-bottom:0.85rem;">
+          <div>
+            <h2>📦 Descargar y Copiar (index.html + Estudio)</h2>
+            <p style="font-size:0.84rem; color:var(--text-secondary);">
+              Descarga directamente el archivo <code>index.html</code> listo para usar o copia el código completo y el contenido analizado al portapapeles.
+            </p>
+          </div>
+          <span id="copyActionFeedback" class="font-mono" style="font-size:0.78rem; color:var(--brand-emerald); font-weight:700;"></span>
+        </div>
+
+        <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(min(100%, 210px), 1fr)); gap:0.55rem; margin-bottom:0.85rem;">
+          <button type="button" class="btn btn-primary" onclick="downloadSelfSourceHTML()">
+            💾 Descargar index.html
+          </button>
+          <button type="button" class="btn btn-soft" onclick="copySelfSourceHTML()">
+            📋 Copiar Código index.html
+          </button>
+          <button type="button" class="btn" onclick="copyFullStudySummary()">
+            📑 Copiar Resumen y Estudio
+          </button>
+          <button type="button" class="btn" onclick="toggleSourceCodePreview()">
+            👁️ Ver / Ocultar Código HTML
+          </button>
+        </div>
+
+        <div id="sourceCodePreviewWrap" style="display:none; margin-top:0.75rem;">
+          <label for="sourceCodeTextarea" class="stat-label" style="display:block; margin-bottom:0.35rem;">
+            Código Fuente Completo de index.html (Seleccionable)
+          </label>
+          <textarea
+            id="sourceCodeTextarea"
+            readonly
+            class="font-mono"
+            style="width:100%; height:240px; padding:0.8rem; border-radius:14px; border:1px solid var(--border-subtle); background:var(--bg-elevated); color:var(--text-primary); font-size:0.76rem; line-height:1.45; resize:vertical;"
+            onclick="this.select()"
+          ></textarea>
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <!-- ========================================================================
+       MINI REPRODUCTOR FLOTANTE SIEMPRE VISIBLE
+       ======================================================================== -->
+  <aside id="floatingPlayerDock" class="floating-player-Dock" aria-label="Mini reproductor de voz flotante">
+    <!-- Panel Abierto -->
+    <div class="floating-player-panel">
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:0.4rem;">
+        <strong class="font-display" style="font-size:0.88rem;">🎧 Reproductor Inteligente</strong>
+        <div style="display:flex; align-items:center; gap:0.4rem;">
+          <span id="fpPercentBadge" class="font-mono" style="font-size:0.75rem; color:var(--brand-cyan);">0%</span>
+          <button type="button" class="btn btn-icon-only" style="width:38px; height:38px; min-width:38px; min-height:38px;" onclick="toggleFloatingPlayer(false)" aria-label="Cerrar reproductor flotante">✕</button>
+        </div>
+      </div>
+
+      <p id="fpStatusText" style="font-size:0.76rem; color:var(--text-secondary); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; margin-bottom:0.45rem;">
+        Listo para reproducir
+      </p>
+
+      <!-- Barra de progreso en el reproductor flotante -->
+      <div class="progress-Interactive-track" style="height:9px; margin:0 0 0.55rem 0;" onclick="seekReadingByProgressBar(event)">
+        <div id="fpProgressFill" class="progress-Interactive-fill"></div>
+      </div>
+
+      <!-- Controles táctiles -->
+      <div class="fp-grid-btns">
+        <button type="button" class="btn" onclick="stepParagraph(-1)" aria-label="Párrafo anterior">⏮</button>
+        <button type="button" class="btn btn-primary" onclick="playFromCurrentPosition()" aria-label="Reproducir">▶</button>
+        <button type="button" class="btn" onclick="pauseSpeechReading()" aria-label="Pausar">⏸</button>
+        <button type="button" class="btn btn-danger" onclick="stopSpeechReading()" aria-label="Detener">⏹</button>
+        <button type="button" class="btn" onclick="stepParagraph(1)" aria-label="Párrafo siguiente">⏭</button>
+      </div>
+
+      <!-- Velocidad y Volumen -->
+      <div style="display:grid; grid-template-columns:1fr 1fr; gap:0.45rem; margin-bottom:0.5rem;">
+        <div>
+          <label class="stat-label" for="fpRateSelect">Velocidad</label>
+          <select id="fpRateSelect" class="control-select font-mono" onchange="changeSpeechRate(this.value)">
+            <option value="0.5">0.5x</option>
+            <option value="0.75">0.75x</option>
+            <option value="1" selected>1.0x</option>
+            <option value="1.25">1.25x</option>
+            <option value="1.5">1.5x</option>
+            <option value="2">2.0x</option>
+          </select>
+        </div>
+        <div>
+          <label class="stat-label" for="fpVolumeRange">Volumen</label>
+          <input
+            type="range"
+            id="fpVolumeRange"
+            class="control-range"
+            min="0"
+            max="1"
+            step="0.05"
+            value="1"
+            oninput="changeSpeechVolume(this.value)"
+          />
+        </div>
+      </div>
+
+      <!-- Selector de voz -->
+      <div>
+        <label class="stat-label" for="fpVoiceSelect">Voz Activa</label>
+        <select id="fpVoiceSelect" class="control-select" style="margin-top:0.2rem;" onchange="changeSelectedVoice(this.value)">
+          <option value="">Voz automática</option>
+        </select>
+      </div>
+    </div>
+
+    <!-- Botón Flotante Compacto -->
+    <button
+      type="button"
+      class="fab-player-trigger"
+      onclick="toggleFloatingPlayer()"
+      aria-label="Abrir o cerrar controles de audio flotantes"
+    >
+      <span>🎧</span>
+      <span id="fabMiniPercent" class="font-mono" style="font-size:0.75rem;">0%</span>
+    </button>
+  </aside>
+
+  <!-- ========================================================================
+       BOTTOM NAVIGATION FIJA PARA MÓVIL (ERGONOMÍA DE PULGAR CON 1 MANO)
+       ======================================================================== -->
+  <nav class="bottom-nav" aria-label="Navegación inferior móvil">
+    <button type="button" class="bottom-nav-item active" data-bnav="lector" onclick="switchModule('lector')">
+      <span class="bnav-icon" aria-hidden="true">📖</span>
+      <span class="bnav-label">Lector</span>
+    </button>
+    <button type="button" class="bottom-nav-item" data-bnav="resumen" onclick="switchModule('resumen')">
+      <span class="bnav-icon" aria-hidden="true">📝</span>
+      <span class="bnav-label">Resumen</span>
+    </button>
+    <button type="button" class="bottom-nav-item" data-bnav="cuestionario" onclick="switchModule('cuestionario')">
+      <span class="bnav-icon" aria-hidden="true">✅</span>
+      <span class="bnav-label">Quiz</span>
+    </button>
+    <button type="button" class="bottom-nav-item" data-bnav="flashcards" onclick="switchModule('flashcards')">
+      <span class="bnav-icon" aria-hidden="true">🃏</span>
+      <span class="bnav-label">Tarjetas</span>
+    </button>
+    <button type="button" class="bottom-nav-item" id="bnavMoreBtn" onclick="toggleBottomSheet(true)">
+      <span class="bnav-icon" aria-hidden="true">☰</span>
+      <span class="bnav-label">Más / IA</span>
+    </button>
+  </nav>
+
+  <!-- ========================================================================
+       BOTTOM SHEET DESLIZABLE (HERRAMIENTAS, ACCESIBILIDAD, EXPORTACIÓN Y MÓDULOS)
+       ======================================================================== -->
+  <div id="bottomSheetBackdrop" class="bottom-sheet-backdrop" onclick="toggleBottomSheet(false)" aria-hidden="true"></div>
+  <aside id="mobileBottomSheet" class="bottom-sheet" aria-label="Menú de herramientas y accesibilidad">
+    <div class="sheet-grab-handle" aria-hidden="true"></div>
+    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:0.85rem;">
+      <strong class="font-display" style="font-size:1rem;">⚡ Suite de Estudio y Ajustes</strong>
+      <button type="button" class="btn btn-icon-only" style="width:40px; height:40px; min-width:40px; min-height:40px;" onclick="toggleBottomSheet(false)" aria-label="Cerrar menú">✕</button>
+    </div>
+
+    <!-- Módulos adicionales -->
+    <div class="sidebar-group-title">Módulos y Biblioteca</div>
+    <div style="display:grid; grid-template-columns:1fr 1fr; gap:0.5rem; margin-bottom:1rem;">
+      <button type="button" class="btn" onclick="switchModule('conceptos'); toggleBottomSheet(false);">💡 Conceptos Clave</button>
+      <button type="button" class="btn" onclick="switchModule('mapa'); toggleBottomSheet(false);">🕸️ Mapa Mental</button>
+      <button type="button" class="btn" onclick="switchModule('biblioteca'); toggleBottomSheet(false);">📚 Biblioteca</button>
+      <button type="button" class="btn btn-primary" onclick="document.getElementById('fileUploader').click(); toggleBottomSheet(false);">📂 Subir Archivo</button>
+    </div>
+
+    <!-- Accesibilidad visual y cognitiva -->
+    <div class="sidebar-group-title">Accesibilidad Visual y Lectura</div>
+    <div style="display:grid; grid-template-columns:1fr 1fr; gap:0.5rem; margin-bottom:1rem;">
+      <button type="button" class="btn" id="sheetBtnContrast" onclick="toggleAccessibility('highContrast')">👁️ Alto Contraste</button>
+      <button type="button" class="btn" id="sheetBtnSepia" onclick="toggleAccessibility('sepiaTheme')">📜 Fondo Sepia</button>
+      <button type="button" class="btn" id="sheetBtnLargeFont" onclick="toggleAccessibility('largeFont')">🔠 Fuente Grande</button>
+      <button type="button" class="btn" id="sheetBtnWideSpacing" onclick="toggleAccessibility('wideSpacing')">↔️ Espaciado +</button>
+      <button type="button" class="btn" id="sheetBtnDyslexia" onclick="toggleAccessibility('dyslexia')">🔤 Modo Dislexia</button>
+      <button type="button" class="btn" id="sheetBtnAutoRead" onclick="toggleAccessibility('autoRead')">⚡ Auto-Lectura</button>
+    </div>
+
+    <!-- Exportar documento -->
+    <div class="sidebar-group-title">Exportar Estudio Completo</div>
+    <div style="display:grid; grid-template-columns:repeat(4, 1fr); gap:0.45rem; margin-bottom:0.8rem;">
+      <button type="button" class="btn" onclick="exportCurrentDocument('pdf'); toggleBottomSheet(false);">📄 PDF</button>
+      <button type="button" class="btn" onclick="exportCurrentDocument('word'); toggleBottomSheet(false);">📘 Word</button>
+      <button type="button" class="btn" onclick="exportCurrentDocument('md'); toggleBottomSheet(false);">📝 MD</button>
+      <button type="button" class="btn" onclick="exportCurrentDocument('txt'); toggleBottomSheet(false);">📃 TXT</button>
+    </div>
+
+    <!-- Guía de instalación en iOS / Android -->
+    <div id="iosInstallHintBox" class="glass-card" style="margin-bottom:0; padding:0.8rem; font-size:0.78rem; color:var(--text-secondary);">
+      <strong style="color:var(--text-primary); display:block; margin-bottom:0.2rem;">📲 Instalar en Pantalla Principal (PWA)</strong>
+      En Android/Chrome toca <strong>Instalar App</strong>. En iPhone (Safari) toca el botón <strong>Compartir</strong> y selecciona <strong>"Agregar a pantalla de inicio"</strong>.
+    </div>
+  </aside>
+
+  <!-- ========================================================================
+       JAVASCRIPT VANILLA OPTIMIZADO (60 FPS, SIN REFLOWS INNECESARIOS, PWA READY)
+       ======================================================================== -->
+  <script>
+    /* Claves de persistencia en localStorage */
+    const STORAGE_KEYS = {
+      LIBRARY: 'jairrestaura_premium_library_v1',
+      LAST_DOC_ID: 'jairrestaura_premium_last_doc_id_v1',
+      POS_PREFIX: 'jairrestaura_premium_pos_',
+      PREFS: 'jairrestaura_premium_prefs_v1'
+    };
+
+    /* Estado de preferencias del usuario */
+    let userPrefs = {
+      lightTheme: false,
+      sepiaTheme: false,
+      highContrast: false,
+      largeFont: false,
+      wideSpacing: false,
+      dyslexia: false,
+      autoRead: false,
+      autoScroll: true,
+      speechRate: 1,
+      speechVolume: 1,
+      voiceURI: ''
+    };
+
+    /* Estado del documento y lector sincronizado con referencias DOM cacheadas (0 reflows) */
+    let libraryDocs = [];
+    let currentDoc = null;
+    let sentencesList = [];
+    let paragraphsList = [];
+    let activeSentenceIdx = 0;
+    let activeParagraphIdx = 0;
+    let isReading = false;
+    let isPaused = false;
+    let elapsedSeconds = 0;
+    let elapsedTimer = null;
+    let wordFallbackInterval = null;
+    let systemVoices = [];
+
+    /* Referencias O(1) al elemento activo para evitar querySelectorAll en cada palabra */
+    let prevActiveParaEl = null;
+    let prevActiveSentEl = null;
+    let prevActiveWordEl = null;
+
+    /* Estado de Flashcards, Cuestionario y PWA */
+    let flashcardIdx = 0;
+    let flashcardFlipped = false;
+    let quizAnswersState = {};
+    let deferredInstallPrompt = null;
+
+    /* ========================================================================
+       1. PWA: SERVICE WORKER, ICONOS PNG EN CANVAS, OFFLINE E INSTALACIÓN
+       ======================================================================== */
+    function initPWAFeatures() {
+      /* Registrar Service Worker para funcionamiento Offline */
+      if ('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
+          navigator.serviceWorker.register('./sw.js').catch(() => {});
+        });
+      }
+
+      /* Generar icono PNG 180x180 dinámico para iOS Safari apple-touch-icon */
+      try {
+        const canvas = document.createElement('canvas');
+        canvas.width = 180;
+        canvas.height = 180;
+        const ctx = canvas.getContext('2d');
+        if (ctx) {
+          const grad = ctx.createLinearGradient(0, 0, 180, 180);
+          grad.addColorStop(0, '#2563EB');
+          grad.addColorStop(0.52, '#7C3AED');
+          grad.addColorStop(1, '#06B6D4');
+          ctx.fillStyle = grad;
+          ctx.beginPath();
+          ctx.roundRect(0, 0, 180, 180, 40);
+          ctx.fill();
+          ctx.font = '96px sans-serif';
+          ctx.textAlign = 'center';
+          ctx.textBaseline = 'middle';
+          ctx.fillText('📖', 90, 95);
+          const appleLink = document.getElementById('appleTouchIconLink');
+          if (appleLink) appleLink.href = canvas.toDataURL('image/png');
+        }
+      } catch (e) {}
+
+      /* Capturar evento beforeinstallprompt para botón nativo de instalación */
+      window.addEventListener('beforeinstallprompt', (e) => {
+        e.preventDefault();
+        deferredInstallPrompt = e;
+        const btn = document.getElementById('pwaInstallBtn');
+        if (btn) btn.style.display = 'inline-flex';
+      });
+
+      window.addEventListener('appinstalled', () => {
+        deferredInstallPrompt = null;
+        const btn = document.getElementById('pwaInstallBtn');
+        if (btn) btn.style.display = 'none';
+      });
+
+      /* Detector de conexión en tiempo real */
+      const updateOnlineBanner = () => {
+        const banner = document.getElementById('offlineBanner');
+        if (banner) {
+          banner.classList.toggle('visible', !navigator.onLine);
+        }
+      };
+      window.addEventListener('online', updateOnlineBanner);
+      window.addEventListener('offline', updateOnlineBanner);
+      updateOnlineBanner();
+    }
+
+    async function triggerPWAInstall() {
+      if (deferredInstallPrompt) {
+        deferredInstallPrompt.prompt();
+        await deferredInstallPrompt.userChoice;
+        deferredInstallPrompt = null;
+        const btn = document.getElementById('pwaInstallBtn');
+        if (btn) btn.style.display = 'none';
+      } else {
+        toggleBottomSheet(true);
+      }
+    }
+
+    /* ========================================================================
+       2. PREFERENCIAS, ACCESIBILIDAD Y NAVEGACIÓN MÓVIL
+       ======================================================================== */
+    function loadPreferences() {
+      try {
+        const raw = localStorage.getItem(STORAGE_KEYS.PREFS);
+        if (raw) {
+          userPrefs = { ...userPrefs, ...JSON.parse(raw) };
+        }
+      } catch (e) {}
+      applyPreferencesToDOM();
+    }
+
+    function savePreferences() {
+      try {
+        localStorage.setItem(STORAGE_KEYS.PREFS, JSON.stringify(userPrefs));
+      } catch (e) {}
+    }
+
+    function applyPreferencesToDOM() {
+      document.body.classList.toggle('light-theme', !!userPrefs.lightTheme);
+      document.body.classList.toggle('sepia-theme', !!userPrefs.sepiaTheme);
+      document.body.classList.toggle('high-contrast', !!userPrefs.highContrast);
+      document.body.classList.toggle('large-font', !!userPrefs.largeFont);
+      document.body.classList.toggle('wide-spacing', !!userPrefs.wideSpacing);
+      document.body.classList.toggle('dyslexia-font', !!userPrefs.dyslexia);
+
+      const metaTheme = document.getElementById('metaThemeColor');
+      if (metaTheme) {
+        metaTheme.setAttribute('content', userPrefs.lightTheme ? '#F8FAFC' : userPrefs.sepiaTheme ? '#F4ECD8' : '#070B14');
+      }
+
+      const themeBtn = document.getElementById('themeToggleBtn');
+      if (themeBtn) {
+        themeBtn.textContent = userPrefs.lightTheme ? '🌙' : '☀️';
+      }
+
+      const syncToggleBtn = (id, active) => {
+        const el = document.getElementById(id);
+        if (el) el.classList.toggle('btn-primary', !!active);
+      };
+
+      syncToggleBtn('btnContrast', userPrefs.highContrast);
+      syncToggleBtn('sheetBtnContrast', userPrefs.highContrast);
+      syncToggleBtn('btnSepia', userPrefs.sepiaTheme);
+      syncToggleBtn('sheetBtnSepia', userPrefs.sepiaTheme);
+      syncToggleBtn('btnLargeFont', userPrefs.largeFont);
+      syncToggleBtn('sheetBtnLargeFont', userPrefs.largeFont);
+      syncToggleBtn('btnWideSpacing', userPrefs.wideSpacing);
+      syncToggleBtn('sheetBtnWideSpacing', userPrefs.wideSpacing);
+      syncToggleBtn('btnDyslexia', userPrefs.dyslexia);
+      syncToggleBtn('sheetBtnDyslexia', userPrefs.dyslexia);
+      syncToggleBtn('btnAutoRead', userPrefs.autoRead);
+      syncToggleBtn('sheetBtnAutoRead', userPrefs.autoRead);
+
+      const btnAutoRead = document.getElementById('btnAutoRead');
+      if (btnAutoRead) {
+        btnAutoRead.textContent = userPrefs.autoRead ? '⚡ Lectura Automática: ON' : '⚡ Lectura Automática: OFF';
+      }
+
+      const autoScrollBtn = document.getElementById('autoScrollBtn');
+      if (autoScrollBtn) {
+        autoScrollBtn.textContent = userPrefs.autoScroll ? '🎯 Seguir Lectura: ON' : '🎯 Seguir Lectura: OFF';
+      }
+
+      const rMain = document.getElementById('rateSelectMain');
+      const rFp = document.getElementById('fpRateSelect');
+      if (rMain) rMain.value = String(userPrefs.speechRate);
+      if (rFp) rFp.value = String(userPrefs.speechRate);
+
+      const vMain = document.getElementById('volumeSliderMain');
+      const vFp = document.getElementById('fpVolumeRange');
+      const vLbl = document.getElementById('volumeValueLabel');
+      if (vMain) vMain.value = String(userPrefs.speechVolume);
+      if (vFp) vFp.value = String(userPrefs.speechVolume);
+      if (vLbl) vLbl.textContent = Math.round(userPrefs.speechVolume * 100) + '%';
+    }
+
+    function toggleThemeMode() {
+      userPrefs.lightTheme = !userPrefs.lightTheme;
+      if (userPrefs.lightTheme) userPrefs.sepiaTheme = false;
+      savePreferences();
+      applyPreferencesToDOM();
+    }
+
+    function toggleAccessibility(key) {
+      userPrefs[key] = !userPrefs[key];
+      if (key === 'sepiaTheme' && userPrefs.sepiaTheme) {
+        userPrefs.lightTheme = false;
+      }
+      savePreferences();
+      applyPreferencesToDOM();
+    }
+
+    function toggleAutoScroll() {
+      userPrefs.autoScroll = !userPrefs.autoScroll;
+      savePreferences();
+      applyPreferencesToDOM();
+    }
+
+    function toggleImmersiveMode() {
+      const active = document.body.classList.toggle('immersive-mode');
+      const banner = document.getElementById('exitImmersiveBanner');
+      if (banner) banner.style.display = active ? 'flex' : 'none';
+    }
+
+    function toggleMobileSearchDrawer() {
+      const row = document.getElementById('searchDrawerRow');
+      const btn = document.getElementById('mobileSearchToggleBtn');
+      if (!row) return;
+      const isOpen = row.classList.toggle('open');
+      if (btn) btn.setAttribute('aria-expanded', String(isOpen));
+      if (isOpen) {
+        const input = document.getElementById('globalSearchInput');
+        if (input) input.focus();
+      }
+    }
+
+    function toggleDeckSettings() {
+      const drawer = document.getElementById('deckAdvancedDrawer');
+      if (drawer) drawer.classList.toggle('open');
+    }
+
+    function toggleBottomSheet(forceState) {
+      const sheet = document.getElementById('mobileBottomSheet');
+      const backdrop = document.getElementById('bottomSheetBackdrop');
+      if (!sheet || !backdrop) return;
+      const open = typeof forceState === 'boolean' ? forceState : !sheet.classList.contains('open');
+      sheet.classList.toggle('open', open);
+      backdrop.classList.toggle('open', open);
+    }
+
+    function toggleFloatingPlayer(forceState) {
+      const dock = document.getElementById('floatingPlayerDock');
+      if (!dock) return;
+      const open = typeof forceState === 'boolean' ? forceState : !dock.classList.contains('open');
+      dock.classList.toggle('open', open);
+    }
+
+    /* ========================================================================
+       3. GESTIÓN DE BIBLIOTECA Y DOCUMENTO DEMO INICIAL
+       ======================================================================== */
+    function loadLibraryFromStorage() {
+      try {
+        const raw = localStorage.getItem(STORAGE_KEYS.LIBRARY);
+        if (raw) {
+          libraryDocs = JSON.parse(raw) || [];
+        }
+      } catch (e) {
+        libraryDocs = [];
+      }
+
+      if (libraryDocs.length === 0) {
+        const demoDoc = createBuiltInDemoDocument();
+        libraryDocs.push(demoDoc);
+        saveLibraryToStorage();
+      }
+
+      const lastId = localStorage.getItem(STORAGE_KEYS.LAST_DOC_ID);
+      const targetDoc = libraryDocs.find((d) => d.id === lastId) || libraryDocs[0];
+      openDocumentRecord(targetDoc, false);
+      renderLibraryModule();
+    }
+
+    function saveLibraryToStorage() {
+      try {
+        localStorage.setItem(STORAGE_KEYS.LIBRARY, JSON.stringify(libraryDocs.slice(0, 15)));
+      } catch (e) {}
+    }
+
+    function createBuiltInDemoDocument() {
+      const pages = [
+        {
+          pageNumber: 1,
+          title: 'Capítulo 1: Arquitectura de la Lectura Asistida por Inteligencia Artificial',
+          paragraphs: [
+            'La lectura sincronizada combina síntesis de voz neuronal en tiempo real con seguimiento visual de palabras, frases y párrafos. Este enfoque multisensorial incrementa la comprensión lectora y reduce la fatiga visual en documentos técnicos y científicos.',
+            'Cuando el ojo humano sigue un resaltado cromático preciso mientras escucha la cadencia fonética, la corteza prefrontal procesa conceptos abstractos con mayor velocidad. Por ello, plataformas modernas integran resúmenes ejecutivos, mapas mentales y cuestionarios autoevaluables.'
+          ]
+        },
+        {
+          pageNumber: 2,
+          title: 'Capítulo 2: Experiencia Mobile-First y Memoria Persistente',
+          paragraphs: [
+            'El aprendizaje móvil efectivo requiere transformar la lectura pasiva en evocación activa mediante flashcards táctiles y preguntas de verificación diseñadas para usarse con una sola mano.',
+            'Además, la preservación del estado de lectura en memoria local y el soporte PWA offline garantizan que el estudiante o investigador retome exactamente la página, el párrafo y la frase donde detuvo su sesión anterior desde cualquier teléfono Android o iPhone.'
+          ]
+        }
+      ];
+      return buildDocumentObject('Manual-NeuroLectura-IA-Mobile.pdf', 'PDF', pages);
+    }
+
+    /* ========================================================================
+       4. CARGA COMPATIBLE CON PDF (PDF.js), DOCX (Mammoth.js), EPUB, MD Y TXT
+       ======================================================================== */
+    function setupDropzoneEvents() {
+      const dropzoneBox = document.getElementById('dropzoneBox');
+      if (!dropzoneBox) return;
+      dropzoneBox.addEventListener('dragover', (e) => {
+        e.preventDefault();
+      });
+      dropzoneBox.addEventListener('drop', (e) => {
+        e.preventDefault();
+        if (e.dataTransfer.files && e.dataTransfer.files[0]) {
+          processUploadedDocument(e.dataTransfer.files[0]);
+        }
+      });
+    }
+
+    function handleFileInputChange(event) {
+      const file = event.target.files && event.target.files[0];
+      if (file) {
+        processUploadedDocument(file);
+      }
+      event.target.value = '';
+    }
+
+    async function processUploadedDocument(file) {
+      const ext = file.name.split('.').pop().toLowerCase();
+      let pages = [];
+      let formatLabel = ext.toUpperCase();
+
+      setReaderStatusText('⏳ Procesando documento...');
+
+      try {
+        if (ext === 'pdf' && window.pdfjsLib) {
+          window.pdfjsLib.GlobalWorkerOptions.workerSrc =
+            'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+          const buffer = await file.arrayBuffer();
+          const pdf = await window.pdfjsLib.getDocument({ data: buffer }).promise;
+          for (let i = 1; i <= pdf.numPages; i++) {
+            const page = await pdf.getPage(i);
+            const content = await page.getTextContent();
+            let lines = [];
+            let currentLine = '';
+            let lastY = null;
+            content.items.forEach((item) => {
+              const y = item.transform ? Math.round(item.transform[5]) : null;
+              if (lastY !== null && y !== null && Math.abs(y - lastY) > 10) {
+                if (currentLine.trim()) lines.push(currentLine.trim());
+                currentLine = item.str;
+              } else {
+                currentLine += (currentLine.endsWith(' ') || !currentLine ? '' : ' ') + item.str;
+              }
+              if (y !== null) lastY = y;
+            });
+            if (currentLine.trim()) lines.push(currentLine.trim());
+            const paras = splitIntoCleanParagraphs(lines.join('\n'));
+            if (paras.length > 0) {
+              pages.push({
+                pageNumber: i,
+                title: `Página ${i} de ${pdf.numPages}`,
+                paragraphs: paras
+              });
+            }
+          }
+          formatLabel = 'PDF';
+        } else if (ext === 'docx' && window.mammoth) {
+          const buffer = await file.arrayBuffer();
+          const res = await window.mammoth.convertToHtml({ arrayBuffer: buffer });
+          const temp = document.createElement('div');
+          temp.innerHTML = res.value || '';
+          const blocks = Array.from(temp.querySelectorAll('h1, h2, h3, h4, p, li'))
+            .map((el) => el.textContent.replace(/\s+/g, ' ').trim())
+            .filter((t) => t.length > 0);
+          const paras = blocks.length > 0
+            ? blocks
+            : splitIntoCleanParagraphs((await window.mammoth.extractRawText({ arrayBuffer: buffer })).value || '');
+          pages = chunkParagraphsIntoPages(paras, 7, 'Sección DOCX');
+          formatLabel = 'DOCX';
+        } else if (ext === 'epub' && window.JSZip) {
+          const buffer = await file.arrayBuffer();
+          const zip = await window.JSZip.loadAsync(buffer);
+          const htmlFiles = Object.keys(zip.files)
+            .filter((k) => /\.(xhtml|html|htm)$/i.test(k) && !/toc|nav/i.test(k))
+            .sort();
+          let chNum = 1;
+          for (const key of htmlFiles) {
+            const rawHtml = await zip.files[key].async('string');
+            const docDom = new DOMParser().parseFromString(rawHtml, 'text/html');
+            const heading = docDom.querySelector('h1, h2, h3, title');
+            const pNodes = Array.from(docDom.querySelectorAll('p, li, h1, h2, h3'))
+              .map((el) => el.textContent.replace(/\s+/g, ' ').trim())
+              .filter((t) => t.length > 20);
+            if (pNodes.length > 0) {
+              pages.push({
+                pageNumber: chNum,
+                title: heading && heading.textContent.trim() ? heading.textContent.trim().slice(0, 60) : `Capítulo EPUB ${chNum}`,
+                paragraphs: pNodes
+              });
+              chNum++;
+            }
+          }
+          formatLabel = 'EPUB';
+        } else {
+          const rawText = await file.text();
+          const paras = splitIntoCleanParagraphs(rawText);
+          pages = chunkParagraphsIntoPages(paras, 7, ext === 'md' ? 'Sección MD' : 'Página TXT');
+          formatLabel = ext === 'md' ? 'MD' : 'TXT';
+        }
+      } catch (err) {
+        console.error('Error procesando archivo:', err);
+      }
+
+      if (!pages || pages.length === 0) {
+        pages = [{
+          pageNumber: 1,
+          title: file.name,
+          paragraphs: ['No se pudo extraer texto estructurado del archivo seleccionado. Verifica que el documento contenga texto seleccionable.']
+        }];
+      }
+
+      const newDoc = buildDocumentObject(file.name, formatLabel, pages);
+      libraryDocs = [newDoc, ...libraryDocs.filter((d) => d.id !== newDoc.id)];
+      saveLibraryToStorage();
+      renderLibraryModule();
+      openDocumentRecord(newDoc, true);
+    }
+
+    function splitIntoCleanParagraphs(text) {
+      const blocks = String(text || '')
+        .split(/\n\s*\n+/)
+        .map((b) => b.replace(/\s+/g, ' ').trim())
+        .filter((b) => b.length > 0);
+      if (blocks.length > 1) return blocks;
+
+      const sents = String(text || '')
+        .replace(/\s+/g, ' ')
+        .trim()
+        .split(/(?<=[.!?])\s+/)
+        .filter((s) => s.trim().length > 0);
+
+      const grouped = [];
+      for (let i = 0; i < sents.length; i += 3) {
+        grouped.push(sents.slice(i, i + 3).join(' '));
+      }
+      return grouped;
+    }
+
+    function chunkParagraphsIntoPages(paragraphs, perPage, prefix) {
+      const out = [];
+      for (let i = 0; i < paragraphs.length; i += perPage) {
+        const pageNum = Math.floor(i / perPage) + 1;
+        out.push({
+          pageNumber: pageNum,
+          title: `${prefix} ${pageNum}`,
+          paragraphs: paragraphs.slice(i, i + perPage)
+        });
+      }
+      return out;
+    }
+
+    /* ========================================================================
+       5. MOTOR DE ANÁLISIS IA (RESUMEN, CONCEPTOS, FLASHCARDS, QUIZ, MAPA MENTAL)
+       ======================================================================== */
+    function buildDocumentObject(fileName, formatLabel, pages) {
+      const cleanTitle = fileName.replace(/\.[^.]+$/, '').replace(/[-_]/g, ' ');
+      const fullText = pages.map((p) => p.paragraphs.join(' ')).join(' ');
+      const allWords = fullText.trim().split(/\s+/).filter(Boolean);
+
+      const allSentences = fullText
+        .split(/(?<=[.!?])\s+/)
+        .map((s) => s.trim())
+        .filter((s) => s.length > 22);
+
+      const stopWords = new Set([
+        'sobre', 'entre', 'cuando', 'donde', 'porque', 'aunque', 'desde', 'hasta',
+        'todos', 'todas', 'puede', 'pueden', 'mismo', 'misma', 'parte', 'forma',
+        'tiempo', 'hacer', 'tiene', 'tienen', 'según', 'durante', 'mediante',
+        'permite', 'además', 'como', 'para', 'este', 'esta', 'estos', 'estas'
+      ]);
+
+      const freqMap = {};
+      (fullText.toLowerCase().match(/[a-záéíóúñü]{5,}/g) || []).forEach((w) => {
+        if (!stopWords.has(w)) freqMap[w] = (freqMap[w] || 0) + 1;
+      });
+
+      const topTerms = Object.entries(freqMap)
+        .sort((a, b) => b[1] - a[1])
+        .slice(0, 8)
+        .map((entry) => entry[0]);
+
+      const shortSummary = allSentences.slice(0, 2).join(' ') || `Síntesis ejecutiva de ${cleanTitle}.`;
+      const detailedSummary = allSentences.slice(0, 6).join(' ') || shortSummary;
+      const mainIdeas = allSentences.slice(0, 6);
+
+      const concepts = topTerms.slice(0, 6).map((term, i) => {
+        const capTerm = term.charAt(0).toUpperCase() + term.slice(1);
+        const contextSent = allSentences.find((s) => s.toLowerCase().includes(term)) || allSentences[i % Math.max(1, allSentences.length)] || shortSummary;
+        return {
+          term: capTerm,
+          category: i % 2 === 0 ? 'Concepto Esencial' : 'Término Clave',
+          definition: contextSent
+        };
+      });
+
+      const flashcards = concepts.map((c) => ({
+        question: `¿Cuál es la relevancia y definición de "${c.term}" en el documento "${cleanTitle}"?`,
+        answer: c.definition
+      }));
+
+      const quiz = [];
+      allSentences.slice(0, 4).forEach((sent, idx) => {
+        quiz.push({
+          id: 'q-mc-' + idx,
+          type: 'Opción Múltiple',
+          question: `Según la sección analizada de "${cleanTitle}", ¿cuál de los siguientes enunciados refleja fielmente el contenido del documento?`,
+          options: [
+            sent.slice(0, 145),
+            'El documento descarta por completo este planteamiento y sugiere lo opuesto.',
+            'No existe mención alguna sobre este proceso dentro de los capítulos cargados.'
+          ],
+          correctIndex: 0,
+          explanation: `Correcto. El texto afirma expresamente: "${sent}"`
+        });
+      });
+
+      concepts.slice(0, 2).forEach((c, idx) => {
+        quiz.push({
+          id: 'q-vf-' + idx,
+          type: 'Verdadero / Falso',
+          question: `Verdadero o Falso: El concepto "${c.term}" se aborda en el documento en relación con: "${c.definition.slice(0, 120)}..."`,
+          options: ['Verdadero', 'Falso'],
+          correctIndex: 0,
+          explanation: `Verdadero. Se fundamenta directamente en el texto: "${c.definition}"`
+        });
+      });
+
+      return {
+        id: 'doc-' + cleanTitle.toLowerCase().replace(/[^a-z0-9]+/g, '-') + '-' + pages.length,
+        title: cleanTitle,
+        fileName,
+        format: formatLabel,
+        wordCount: allWords.length,
+        pages,
+        shortSummary,
+        detailedSummary,
+        mainIdeas,
+        concepts,
+        flashcards,
+        quiz,
+        updatedAt: new Date().toLocaleDateString('es-ES')
+      };
+    }
+
+    /* ========================================================================
+       6. RENDERIZADO DEL VISOR SINCRONIZADO Y MÓDULOS
+       ======================================================================== */
+    function openDocumentRecord(doc, autoStartIfEnabled) {
+      if (!doc) return;
+      stopSpeechReading();
+      currentDoc = doc;
+      localStorage.setItem(STORAGE_KEYS.LAST_DOC_ID, doc.id);
+
+      document.getElementById('loadedDocIndicator').textContent = `${doc.title} (${doc.format})`;
+      document.getElementById('statPages').textContent = doc.pages.length;
+      document.getElementById('statWords').textContent = doc.wordCount.toLocaleString();
+      document.getElementById('statFormatLabel').textContent = `Formato: ${doc.format}`;
+
+      buildSynchronizedDOM(doc);
+      renderSummaryModule(doc);
+      renderConceptsModule(doc);
+      renderQuizModule(doc);
+      renderFlashcardsModule(doc);
+      renderMindmapModule(doc);
+      renderLibraryModule();
+
+      checkSavedReadingMemory(doc.id);
+
+      if (autoStartIfEnabled && userPrefs.autoRead) {
+        setTimeout(() => startReadingFullDocument(), 300);
+      }
+    }
+
+    function buildSynchronizedDOM(doc) {
+      sentencesList = [];
+      paragraphsList = [];
+      activeSentenceIdx = 0;
+      activeParagraphIdx = 0;
+      elapsedSeconds = 0;
+      prevActiveParaEl = null;
+      prevActiveSentEl = null;
+      prevActiveWordEl = null;
+
+      const viewport = document.getElementById('readerViewport');
+      const jumpBar = document.getElementById('pageJumpBar');
+
+      jumpBar.innerHTML = doc.pages.map((p, idx) => `
+        <button type="button" class="btn" style="min-height:40px; font-size:0.75rem; padding:0.35rem 0.75rem; flex-shrink:0;" onclick="scrollToPageBlock(${idx})">
+          📄 Pág. ${p.pageNumber}
+        </button>
+      `).join('');
+
+      let pGlobal = 0;
+      let sGlobal = 0;
+      let html = '';
+
+      doc.pages.forEach((page, pageIdx) => {
+        html += `
+          <div class="doc-page-block" id="page-block-${pageIdx}">
+            <div class="doc-page-header">
+              <strong>${escapeHtml(page.title)}</strong>
+              <span>Página ${page.pageNumber} de ${doc.pages.length}</span>
+            </div>
+        `;
+
+        (page.paragraphs || []).forEach((paraText) => {
+          const cleanPara = String(paraText || '').replace(/\s+/g, ' ').trim();
+          if (!cleanPara) return;
+
+          const pIdx = pGlobal++;
+          const firstSentIdx = sGlobal;
+
+          paragraphsList.push({
+            paragraphIndex: pIdx,
+            pageNumber: page.pageNumber,
+            firstSentenceIndex: firstSentIdx,
+            text: cleanPara
+          });
+
+          const rawSentences = cleanPara
+            .split(/(?<=[.!?])\s+/)
+            .map((s) => s.trim())
+            .filter(Boolean);
+
+          let sentencesMarkup = '';
+
+          rawSentences.forEach((sentText) => {
+            const sIdx = sGlobal++;
+            const tokens = sentText.split(/\s+/);
+            const wordsMeta = [];
+            let charOffset = 0;
+            let wordsMarkup = '';
+
+            tokens.forEach((token, wIdx) => {
+              const start = charOffset;
+              const end = start + token.length;
+              wordsMeta.push({ word: token, start, end });
+              charOffset = end + 1;
+              wordsMarkup += `<span class="sync-word" id="sync-w-${sIdx}-${wIdx}">${escapeHtml(token)}</span> `;
+            });
+
+            sentencesList.push({
+              sentenceIndex: sIdx,
+              paragraphIndex: pIdx,
+              pageNumber: page.pageNumber,
+              text: sentText,
+              wordsMeta
+            });
+
+            sentencesMarkup += `<span class="sync-sentence" id="sync-s-${sIdx}" onclick="event.stopPropagation(); speakFromSentenceIndex(${sIdx});">${wordsMarkup.trim()}</span> `;
+          });
+
+          html += `
+            <div class="sync-paragraph" id="sync-p-${pIdx}" onclick="speakFromSentenceIndex(${firstSentIdx})">
+              <div class="para-meta">
+                <span>Párrafo #${pIdx + 1} · Pág. ${page.pageNumber}</span>
+                <span>🔊 Toca para escuchar</span>
+              </div>
+              <div>${sentencesMarkup}</div>
+            </div>
+          `;
+        });
+
+        html += `</div>`;
+      });
+
+      viewport.innerHTML = html;
+      document.getElementById('statParagraphs').textContent = paragraphsList.length;
+      updateReadingStatsUI();
+    }
+
+    function scrollToPageBlock(pageIdx) {
+      const el = document.getElementById(`page-block-${pageIdx}`);
+      if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    /* ========================================================================
+       7. MOTOR SPEECHSYNTHESIS API REAL Y LECTURA SINCRONIZADA DE ALTO RENDIMIENTO
+       ======================================================================== */
+    function initVoices() {
+      if (!('speechSynthesis' in window)) return;
+
+      const populateVoices = () => {
+        const allVoices = window.speechSynthesis.getVoices() || [];
+        const esVoices = allVoices.filter((v) => v.lang.toLowerCase().startsWith('es'));
+        systemVoices = esVoices.length > 0 ? [...esVoices, ...allVoices.filter((v) => !v.lang.toLowerCase().startsWith('es'))] : allVoices;
+
+        if (!userPrefs.voiceURI && systemVoices.length > 0) {
+          const preferred =
+            systemVoices.find((v) => v.lang.toLowerCase().includes('es-es')) ||
+            systemVoices.find((v) => v.lang.toLowerCase().includes('es-mx')) ||
+            systemVoices.find((v) => v.lang.toLowerCase().startsWith('es')) ||
+            systemVoices[0];
+          if (preferred) userPrefs.voiceURI = preferred.voiceURI;
+        }
+
+        const optionsHtml = systemVoices
+          .map(
+            (v) =>
+              `<option value="${escapeHtml(v.voiceURI)}" ${
+                v.voiceURI === userPrefs.voiceURI ? 'selected' : ''
+              }>🎙️ ${escapeHtml(v.name)} (${escapeHtml(v.lang)})</option>`
+          )
+          .join('');
+
+        const mainSel = document.getElementById('voiceSelectMain');
+        const fpSel = document.getElementById('fpVoiceSelect');
+        if (mainSel && optionsHtml) mainSel.innerHTML = optionsHtml;
+        if (fpSel && optionsHtml) fpSel.innerHTML = optionsHtml;
+      };
+
+      populateVoices();
+      window.speechSynthesis.onvoiceschanged = populateVoices;
+    }
+
+    function startReadingFullDocument() {
+      switchModule('lector');
+      activeSentenceIdx = 0;
+      activeParagraphIdx = 0;
+      speakFromSentenceIndex(0);
+    }
+
+    function playFromCurrentPosition() {
+      if (isPaused && window.speechSynthesis && window.speechSynthesis.paused) {
+        resumeSpeechReading();
+        return;
+      }
+      speakFromSentenceIndex(activeSentenceIdx || 0);
+    }
+
+    function speakFromSentenceIndex(sIdx) {
+      if (!('speechSynthesis' in window)) return;
+      if (!sentencesList.length) return;
+
+      window.speechSynthesis.cancel();
+      clearWordTimer();
+
+      if (sIdx >= sentencesList.length) {
+        finishDocumentReading();
+        return;
+      }
+
+      isReading = true;
+      isPaused = false;
+      activeSentenceIdx = sIdx;
+      const item = sentencesList[sIdx];
+      activeParagraphIdx = item.paragraphIndex;
+
+      applyVisualSyncHighlight(item.paragraphIndex, item.sentenceIndex, 0);
+      saveReadingPositionToStorage(item.pageNumber, item.paragraphIndex, item.sentenceIndex);
+      startSessionTimer();
+      updateReadingStatsUI();
+
+      setReaderStatusText(`🔊 Leyendo Pág. ${item.pageNumber} · Párrafo ${item.paragraphIndex + 1}`);
+
+      const utterance = new SpeechSynthesisUtterance(item.text);
+      utterance.rate = Number(userPrefs.speechRate) || 1;
+      utterance.volume = Number(userPrefs.speechVolume) ?? 1;
+      utterance.lang = 'es-ES';
+
+      const selectedVoice = systemVoices.find((v) => v.voiceURI === userPrefs.voiceURI);
+      if (selectedVoice) {
+        utterance.voice = selectedVoice;
+        utterance.lang = selectedVoice.lang;
+      }
+
+      let nativeBoundaryFired = false;
+
+      utterance.onboundary = (event) => {
+        if (event.name === 'word' || typeof event.charIndex === 'number') {
+          nativeBoundaryFired = true;
+          clearWordTimer();
+          const charPos = event.charIndex || 0;
+          const wIdx = findWordByCharIndex(item.wordsMeta, charPos);
+          highlightSingleWord(item.sentenceIndex, wIdx);
+        }
+      };
+
+      /* Sincronizador de respaldo para navegadores móviles que no emiten onboundary */
+      const totalWords = Math.max(1, item.wordsMeta.length);
+      const msPerWord = Math.max(130, Math.round(310 / (userPrefs.speechRate || 1)));
+      let currentSimWord = 0;
+      wordFallbackInterval = setInterval(() => {
+        if (nativeBoundaryFired || !isReading || isPaused) return;
+        currentSimWord++;
+        if (currentSimWord < totalWords) {
+          highlightSingleWord(item.sentenceIndex, currentSimWord);
+        }
+      }, msPerWord);
+
+      utterance.onend = () => {
+        clearWordTimer();
+        if (isReading && !isPaused) {
+          if (activeSentenceIdx + 1 < sentencesList.length) {
+            speakFromSentenceIndex(activeSentenceIdx + 1);
+          } else {
+            finishDocumentReading();
+          }
+        }
+      };
+
+      utterance.onerror = () => {
+        clearWordTimer();
+      };
+
+      window.speechSynthesis.speak(utterance);
+    }
+
+    function findWordByCharIndex(wordsMeta, charIndex) {
+      for (let i = 0; i < wordsMeta.length; i++) {
+        if (charIndex >= wordsMeta[i].start && charIndex <= wordsMeta[i].end + 2) {
+          return i;
+        }
+      }
+      return 0;
+    }
+
+    /* Optimización O(1) sin repintados masivos del DOM */
+    function applyVisualSyncHighlight(pIdx, sIdx, wIdx) {
+      if (prevActiveParaEl) prevActiveParaEl.classList.remove('active-paragraph');
+      if (prevActiveSentEl) prevActiveSentEl.classList.remove('active-sentence');
+
+      const pEl = document.getElementById(`sync-p-${pIdx}`);
+      if (pEl) {
+        pEl.classList.add('active-paragraph');
+        prevActiveParaEl = pEl;
+      }
+
+      const sEl = document.getElementById(`sync-s-${sIdx}`);
+      if (sEl) {
+        sEl.classList.add('active-sentence');
+        prevActiveSentEl = sEl;
+        if (userPrefs.autoScroll) {
+          sEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+      }
+
+      highlightSingleWord(sIdx, wIdx);
+    }
+
+    function highlightSingleWord(sIdx, wIdx) {
+      if (prevActiveWordEl) prevActiveWordEl.classList.remove('active-word');
+      const wEl = document.getElementById(`sync-w-${sIdx}-${wIdx}`);
+      if (wEl) {
+        wEl.classList.add('active-word');
+        prevActiveWordEl = wEl;
+      }
+    }
+
+    function pauseSpeechReading() {
+      if (!('speechSynthesis' in window)) return;
+      if (window.speechSynthesis.speaking && !window.speechSynthesis.paused) {
+        window.speechSynthesis.pause();
+        isPaused = true;
+        setReaderStatusText('⏸ Lectura en pausa');
+      }
+    }
+
+    function resumeSpeechReading() {
+      if (!('speechSynthesis' in window)) return;
+      if (window.speechSynthesis.paused) {
+        window.speechSynthesis.resume();
+        isPaused = false;
+        isReading = true;
+        setReaderStatusText('▶ Reproduciendo lectura sincronizada');
+      } else if (!isReading) {
+        speakFromSentenceIndex(activeSentenceIdx);
+      }
+    }
+
+    function stopSpeechReading() {
+      if ('speechSynthesis' in window) {
+        window.speechSynthesis.cancel();
+      }
+      isReading = false;
+      isPaused = false;
+      clearWordTimer();
+      stopSessionTimer();
+      setReaderStatusText('⏹ Lectura detenida');
+    }
+
+    function stepParagraph(direction) {
+      if (!paragraphsList.length) return;
+      const targetPara = Math.max(0, Math.min(paragraphsList.length - 1, activeParagraphIdx + direction));
+      const found = paragraphsList[targetPara];
+      if (found) {
+        speakFromSentenceIndex(found.firstSentenceIndex);
+      }
+    }
+
+    function seekReadingByProgressBar(event) {
+      if (!sentencesList.length) return;
+      const rect = event.currentTarget.getBoundingClientRect();
+      const ratio = Math.max(0, Math.min(1, (event.clientX - rect.left) / rect.width));
+      const targetIdx = Math.floor(ratio * (sentencesList.length - 1));
+      speakFromSentenceIndex(targetIdx);
+    }
+
+    function changeSelectedVoice(voiceURI) {
+      userPrefs.voiceURI = voiceURI;
+      savePreferences();
+      const mainSel = document.getElementById('voiceSelectMain');
+      const fpSel = document.getElementById('fpVoiceSelect');
+      if (mainSel) mainSel.value = voiceURI;
+      if (fpSel) fpSel.value = voiceURI;
+      if (isReading && !isPaused) {
+        speakFromSentenceIndex(activeSentenceIdx);
+      }
+    }
+
+    function changeSpeechRate(rateVal) {
+      userPrefs.speechRate = parseFloat(rateVal) || 1;
+      savePreferences();
+      applyPreferencesToDOM();
+      updateReadingStatsUI();
+      if (isReading && !isPaused) {
+        speakFromSentenceIndex(activeSentenceIdx);
+      }
+    }
+
+    function changeSpeechVolume(volVal) {
+      userPrefs.speechVolume = parseFloat(volVal);
+      savePreferences();
+      applyPreferencesToDOM();
+      if (isReading && !isPaused) {
+        speakFromSentenceIndex(activeSentenceIdx);
+      }
+    }
+
+    function finishDocumentReading() {
+      isReading = false;
+      isPaused = false;
+      clearWordTimer();
+      stopSessionTimer();
+      setReaderStatusText('✅ Documento completado');
+      updateReadingStatsUI(100);
+    }
+
+    function speakCustomText(text) {
+      if (!('speechSynthesis' in window) || !text) return;
+      stopSpeechReading();
+      const utter = new SpeechSynthesisUtterance(text);
+      utter.rate = Number(userPrefs.speechRate) || 1;
+      utter.volume = Number(userPrefs.speechVolume) ?? 1;
+      const selectedVoice = systemVoices.find((v) => v.voiceURI === userPrefs.voiceURI);
+      if (selectedVoice) utter.voice = selectedVoice;
+      window.speechSynthesis.speak(utter);
+    }
+
+    function clearWordTimer() {
+      if (wordFallbackInterval) {
+        clearInterval(wordFallbackInterval);
+        wordFallbackInterval = null;
+      }
+    }
+
+    function startSessionTimer() {
+      if (elapsedTimer) return;
+      elapsedTimer = setInterval(() => {
+        if (isReading && !isPaused) {
+          elapsedSeconds++;
+          updateReadingStatsUI();
+        }
+      }, 1000);
+    }
+
+    function stopSessionTimer() {
+      if (elapsedTimer) {
+        clearInterval(elapsedTimer);
+        elapsedTimer = null;
+      }
+    }
+
+    function formatMMSS(seconds) {
+      const s = Math.max(0, Math.round(seconds || 0));
+      const mins = Math.floor(s / 60);
+      const secs = s % 60;
+      return `${String(mins).padStart(2, '0')}:${String(secs).padStart(2, '0')}`;
+    }
+
+    function setReaderStatusText(msg) {
+      const st1 = document.getElementById('statReaderState');
+      const st2 = document.getElementById('fpStatusText');
+      if (st1) st1.textContent = msg;
+      if (st2) st2.textContent = msg;
+    }
+
+    function updateReadingStatsUI(forcedPct) {
+      const totalSents = Math.max(1, sentencesList.length);
+      const pct = forcedPct !== undefined
+        ? forcedPct
+        : Math.min(100, Math.round(((activeSentenceIdx + 1) / totalSents) * 100));
+
+      const currentItem = sentencesList[activeSentenceIdx] || sentencesList[0];
+      const totalWords = currentDoc ? currentDoc.wordCount : 200;
+      const wordsPerSecond = (160 / 60) * (userPrefs.speechRate || 1);
+      const totalEstSec = Math.round(totalWords / Math.max(0.5, wordsPerSecond));
+      const remainingSec = Math.max(0, Math.round(totalEstSec * (1 - pct / 100)));
+
+      document.getElementById('statTimeElapsed').textContent = formatMMSS(elapsedSeconds);
+      document.getElementById('statTimeRemaining').textContent = formatMMSS(remainingSec);
+      document.getElementById('statTotalEstLabel').textContent = `Total est.: ${formatMMSS(totalEstSec)}`;
+      document.getElementById('statProgressPercent').textContent = `${pct}%`;
+
+      if (currentItem) {
+        document.getElementById('statCurrentPageLabel').textContent = `Página actual: ${currentItem.pageNumber}`;
+        document.getElementById('statCurrentParaLabel').textContent = `Párrafo actual: ${currentItem.paragraphIndex + 1}`;
+      }
+
+      document.getElementById('topProgressFill').style.width = `${pct}%`;
+      document.getElementById('mainProgressFill').style.width = `${pct}%`;
+      document.getElementById('fpProgressFill').style.width = `${pct}%`;
+      document.getElementById('fpPercentBadge').textContent = `${pct}%`;
+      const fabMini = document.getElementById('fabMiniPercent');
+      if (fabMini) fabMini.textContent = `${pct}%`;
+      const slider = document.getElementById('mainProgressSlider');
+      if (slider) slider.setAttribute('aria-valuenow', String(pct));
+    }
+
+    /* ========================================================================
+       8. MEMORIA PERSISTENTE EN LOCALSTORAGE (PÁGINA, PÁRRAFO, POSICIÓN)
+       ======================================================================== */
+    function saveReadingPositionToStorage(pageNumber, paragraphIndex, sentenceIndex) {
+      if (!currentDoc) return;
+      try {
+        const data = {
+          docId: currentDoc.id,
+          pageNumber,
+          paragraphIndex,
+          sentenceIndex,
+          elapsedSeconds,
+          savedAt: new Date().toLocaleTimeString('es-ES', { hour: '2-digit', minute: '2-digit' })
+        };
+        localStorage.setItem(STORAGE_KEYS.POS_PREFIX + currentDoc.id, JSON.stringify(data));
+      } catch (e) {}
+    }
+
+    function checkSavedReadingMemory(docId) {
+      const bar = document.getElementById('memoryResumeBar');
+      const txt = document.getElementById('memoryResumeText');
+      if (!bar || !txt) return;
+
+      try {
+        const raw = localStorage.getItem(STORAGE_KEYS.POS_PREFIX + docId);
+        if (!raw) {
+          bar.style.display = 'none';
+          return;
+        }
+        const saved = JSON.parse(raw);
+        if (saved && saved.sentenceIndex > 0 && saved.sentenceIndex < sentencesList.length) {
+          bar.style.display = 'flex';
+          txt.textContent = `Última sesión en Página ${saved.pageNumber}, Párrafo ${saved.paragraphIndex + 1}, Frase ${saved.sentenceIndex + 1} (${saved.savedAt || 'reciente'}).`;
+        } else {
+          bar.style.display = 'none';
+        }
+      } catch (e) {
+        bar.style.display = 'none';
+      }
+    }
+
+    function resumeFromSavedMemory() {
+      if (!currentDoc) return;
+      const bar = document.getElementById('memoryResumeBar');
+      if (bar) bar.style.display = 'none';
+      try {
+        const raw = localStorage.getItem(STORAGE_KEYS.POS_PREFIX + currentDoc.id);
+        if (raw) {
+          const saved = JSON.parse(raw);
+          elapsedSeconds = saved.elapsedSeconds || 0;
+          switchModule('lector');
+          speakFromSentenceIndex(saved.sentenceIndex || 0);
+        }
+      } catch (e) {}
+    }
+
+    function dismissSavedMemoryBanner() {
+      const bar = document.getElementById('memoryResumeBar');
+      if (bar) bar.style.display = 'none';
+      if (currentDoc) {
+        localStorage.removeItem(STORAGE_KEYS.POS_PREFIX + currentDoc.id);
+      }
+    }
+
+    /* ========================================================================
+       9. RENDERIZADO DE RESUMEN, CONCEPTOS, CUESTIONARIO, FLASHCARDS, MAPA Y BIBLIOTECA
+       ======================================================================== */
+    function renderSummaryModule(doc) {
+      document.getElementById('summaryShortText').textContent = doc.shortSummary;
+      document.getElementById('summaryDetailedText').textContent = doc.detailedSummary;
+      document.getElementById('summaryMainIdeasList').innerHTML = (doc.mainIdeas || [])
+        .map((idea) => `<li>${escapeHtml(idea)}</li>`)
+        .join('');
+    }
+
+    function getSummarySpeechText() {
+      if (!currentDoc) return '';
+      return `Resumen ejecutivo de ${currentDoc.title}. ${currentDoc.shortSummary}. Ideas principales: ${(currentDoc.mainIdeas || []).join('. ')}`;
+    }
+
+    function renderConceptsModule(doc) {
+      const grid = document.getElementById('conceptsGrid');
+      grid.innerHTML = (doc.concepts || []).map((c) => `
+        <div class="glass-card" style="margin-bottom:0;">
+          <span class="stat-label" style="color:var(--brand-cyan);">${escapeHtml(c.category)}</span>
+          <h3 style="margin:0.35rem 0;">${escapeHtml(c.term)}</h3>
+          <p style="font-size:0.86rem; color:var(--text-secondary); margin-bottom:0.75rem;">${escapeHtml(c.definition)}</p>
+          <button type="button" class="btn btn-soft" onclick="speakCustomText('${escapeHtml(c.term + '. ' + c.definition).replace(/'/g, "\\'")}')">
+            🔊 Escuchar concepto
+          </button>
+        </div>
+      `).join('');
+    }
+
+    function renderQuizModule(doc) {
+      quizAnswersState = {};
+      updateQuizScoreBadge();
+      const container = document.getElementById('quizQuestionsContainer');
+      container.innerHTML = (doc.quiz || []).map((q, qIdx) => `
+        <div class="glass-card" id="quiz-card-${qIdx}">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:0.4rem;">
+            <span class="stat-label" style="color:var(--brand-cyan);">PREGUNTA ${qIdx + 1} · ${escapeHtml(q.type)}</span>
+          </div>
+          <h3 style="font-size:0.96rem; margin-bottom:0.65rem;">${escapeHtml(q.question)}</h3>
+          <div>
+            ${q.options.map((opt, oIdx) => `
+              <button
+                type="button"
+                class="quiz-option"
+                id="quiz-opt-${qIdx}-${oIdx}"
+                onclick="selectQuizOption(${qIdx}, ${oIdx})"
+              >
+                ${escapeHtml(opt)}
+              </button>
+            `).join('')}
+          </div>
+          <p id="quiz-exp-${qIdx}" style="display:none; margin-top:0.65rem; font-size:0.82rem; color:var(--brand-emerald);"></p>
+        </div>
+      `).join('');
+    }
+
+    function selectQuizOption(qIdx, oIdx) {
+      if (!currentDoc || !currentDoc.quiz[qIdx]) return;
+      const q = currentDoc.quiz[qIdx];
+      quizAnswersState[qIdx] = oIdx;
+
+      q.options.forEach((_, idx) => {
+        const btn = document.getElementById(`quiz-opt-${qIdx}-${idx}`);
+        if (!btn) return;
+        btn.classList.remove('correct', 'wrong');
+        if (idx === q.correctIndex) {
+          btn.classList.add('correct');
+        } else if (idx === oIdx && oIdx !== q.correctIndex) {
+          btn.classList.add('wrong');
+        }
+      });
+
+      const exp = document.getElementById(`quiz-exp-${qIdx}`);
+      if (exp) {
+        exp.style.display = 'block';
+        exp.textContent = q.explanation;
+      }
+
+      updateQuizScoreBadge();
+    }
+
+    function updateQuizScoreBadge() {
+      if (!currentDoc || !currentDoc.quiz) return;
+      const total = currentDoc.quiz.length;
+      let hits = 0;
+      Object.keys(quizAnswersState).forEach((k) => {
+        const qIdx = Number(k);
+        if (currentDoc.quiz[qIdx] && quizAnswersState[qIdx] === currentDoc.quiz[qIdx].correctIndex) {
+          hits++;
+        }
+      });
+      const pct = total > 0 ? Math.round((hits / total) * 100) : 0;
+      const badge = document.getElementById('quizFinalScoreBadge');
+      if (badge) badge.textContent = `Resultado: ${hits} / ${total} (${pct}%)`;
+    }
+
+    function resetQuiz() {
+      if (currentDoc) renderQuizModule(currentDoc);
+    }
+
+    function renderFlashcardsModule(doc) {
+      flashcardIdx = 0;
+      flashcardFlipped = false;
+      updateFlashcardDisplay();
+    }
+
+    function updateFlashcardDisplay() {
+      if (!currentDoc || !currentDoc.flashcards || !currentDoc.flashcards.length) return;
+      const cards = currentDoc.flashcards;
+      const card = cards[flashcardIdx] || cards[0];
+      document.getElementById('flashcardCounterBadge').textContent = `${flashcardIdx + 1} / ${cards.length}`;
+      document.getElementById('flashcardRoleLabel').textContent = flashcardFlipped
+        ? 'RESPUESTA EXPLICATIVA (TOCA PARA VOLVER)'
+        : 'PREGUNTA DE REPASO (TOCA PARA VOLTEAR)';
+      document.getElementById('flashcardContentText').textContent = flashcardFlipped ? card.answer : card.question;
+    }
+
+    function flipFlashcard() {
+      flashcardFlipped = !flashcardFlipped;
+      updateFlashcardDisplay();
+    }
+
+    function moveFlashcard(delta) {
+      if (!currentDoc || !currentDoc.flashcards.length) return;
+      const len = currentDoc.flashcards.length;
+      flashcardIdx = (flashcardIdx + delta + len) % len;
+      flashcardFlipped = false;
+      updateFlashcardDisplay();
+    }
+
+    function speakActiveFlashcard() {
+      if (!currentDoc || !currentDoc.flashcards.length) return;
+      const card = currentDoc.flashcards[flashcardIdx];
+      speakCustomText(flashcardFlipped ? card.answer : card.question);
+    }
+
+    function renderMindmapModule(doc) {
+      const container = document.getElementById('mindmapContainer');
+      const branchesHtml = (doc.pages || []).map((p, idx) => {
+        const keyConcept = doc.concepts[idx % Math.max(1, doc.concepts.length)];
+        const sampleIdea = (p.paragraphs && p.paragraphs[0]) ? p.paragraphs[0].slice(0, 140) + '...' : '';
+        return `
+          <div class="mindmap-node">
+            <span class="stat-label" style="color:var(--brand-cyan);">NODO ${idx + 1}</span>
+            <h3 style="font-size:0.96rem; margin:0.3rem 0;">${escapeHtml(p.title)}</h3>
+            <p style="font-size:0.8rem; color:var(--text-secondary); margin-bottom:0.5rem;">${escapeHtml(sampleIdea)}</p>
+            ${keyConcept ? `<div class="font-mono" style="font-size:0.73rem; color:var(--brand-emerald);">↳ Concepto clave: ${escapeHtml(keyConcept.term)}</div>` : ''}
+          </div>
+        `;
+      }).join('');
+
+      container.innerHTML = `
+        <div class="mindmap-root">🧠 ${escapeHtml(doc.title)} (${escapeHtml(doc.format)})</div>
+        <div class="mindmap-branches">${branchesHtml}</div>
+      `;
+    }
+
+    function renderLibraryModule() {
+      const grid = document.getElementById('libraryGridContainer');
+      if (!grid) return;
+      grid.innerHTML = libraryDocs.map((doc) => {
+        const isCurrent = currentDoc && currentDoc.id === doc.id;
+        return `
+          <div class="glass-card" style="margin-bottom:0; border-color:${isCurrent ? 'var(--brand-cyan)' : 'var(--border-subtle)'};">
+            <span class="stat-label">${escapeHtml(doc.format)} · ${escapeHtml(doc.updatedAt || '')}</span>
+            <h3 style="margin:0.35rem 0; font-size:1rem;">${escapeHtml(doc.title)}</h3>
+            <p style="font-size:0.8rem; color:var(--text-secondary); margin-bottom:0.85rem;">
+              ${doc.pages.length} secciones · ${doc.wordCount.toLocaleString()} palabras
+            </p>
+            <div style="display:flex; gap:0.45rem;">
+              <button type="button" class="btn btn-primary" style="flex:1;" onclick="selectDocFromLibrary('${escapeHtml(doc.id)}')">
+                📖 Abrir
+              </button>
+              <button type="button" class="btn btn-danger btn-icon-only" onclick="deleteDocFromLibrary('${escapeHtml(doc.id)}')" aria-label="Eliminar documento">
+                🗑
+              </button>
+            </div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    function selectDocFromLibrary(docId) {
+      const found = libraryDocs.find((d) => d.id === docId);
+      if (found) {
+        openDocumentRecord(found, false);
+        switchModule('lector');
+      }
+    }
+
+    function deleteDocFromLibrary(docId) {
+      if (libraryDocs.length <= 1) return;
+      libraryDocs = libraryDocs.filter((d) => d.id !== docId);
+      saveLibraryToStorage();
+      if (currentDoc && currentDoc.id === docId) {
+        openDocumentRecord(libraryDocs[0], false);
+      } else {
+        renderLibraryModule();
+      }
+    }
+
+    /* ========================================================================
+       10. BUSCADOR INTELIGENTE CON SCROLL AUTOMÁTICO AL PRIMER RESULTADO
+       ======================================================================== */
+    function handleGlobalSearch(query) {
+      const q = String(query || '').trim().toLowerCase();
+      const badge = document.getElementById('searchMatchCount');
+
+      if (!currentDoc) return;
+      if (!q) {
+        if (badge) badge.textContent = '';
+        document.querySelectorAll('.sync-paragraph').forEach((el) => {
+          el.style.display = '';
+        });
+        return;
+      }
+
+      switchModule('lector');
+      let matches = 0;
+      let firstMatchEl = null;
+
+      document.querySelectorAll('.sync-paragraph').forEach((el) => {
+        const text = el.textContent.toLowerCase();
+        if (text.includes(q)) {
+          el.style.display = '';
+          matches++;
+          if (!firstMatchEl) firstMatchEl = el;
+        } else {
+          el.style.display = 'none';
+        }
+      });
+
+      if (badge) {
+        badge.textContent = `${matches} hallados`;
+      }
+      if (firstMatchEl) {
+        firstMatchEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }
+    }
+
+    /* ========================================================================
+       11. NAVEGACIÓN ENTRE MÓDULOS (SIDEBAR + BOTTOM NAV) Y ATAJOS DE TECLADO
+       ======================================================================== */
+    function switchModule(moduleId) {
+      document.querySelectorAll('.module-section').forEach((sec) => sec.classList.remove('active'));
+      const target = document.getElementById('mod-' + moduleId);
+      if (target) target.classList.add('active');
+
+      document.querySelectorAll('#sidebarNav .nav-btn').forEach((btn) => {
+        btn.classList.toggle('active', btn.getAttribute('data-module') === moduleId);
+      });
+
+      document.querySelectorAll('.bottom-nav-item[data-bnav]').forEach((btn) => {
+        btn.classList.toggle('active', btn.getAttribute('data-bnav') === moduleId);
+      });
+
+      const moreBtn = document.getElementById('bnavMoreBtn');
+      if (moreBtn) {
+        moreBtn.classList.toggle('active', ['conceptos', 'mapa', 'biblioteca'].includes(moduleId));
+      }
+
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    document.addEventListener('keydown', (e) => {
+      const tag = (e.target && e.target.tagName) ? e.target.tagName.toLowerCase() : '';
+      if (tag === 'input' || tag === 'textarea' || tag === 'select') return;
+
+      if (e.code === 'Space') {
+        e.preventDefault();
+        if (isReading && !isPaused) {
+          pauseSpeechReading();
+        } else {
+          playFromCurrentPosition();
+        }
+      } else if (e.code === 'ArrowRight') {
+        stepParagraph(1);
+      } else if (e.code === 'ArrowLeft') {
+        stepParagraph(-1);
+      } else if (e.code === 'Escape') {
+        toggleBottomSheet(false);
+        toggleFloatingPlayer(false);
+      }
+    });
+
+    /* ========================================================================
+       12. EXPORTACIÓN DE ESTUDIO (PDF, WORD, MARKDOWN, TXT)
+       ======================================================================== */
+    function exportCurrentDocument(type) {
+      if (!currentDoc) return;
+      const safeName = currentDoc.title.replace(/[^a-z0-9_-]+/gi, '_');
+      const fullContent = [
+        `JAIRRESTAURA LECTOR IA PREMIUM`,
+        `Documento: ${currentDoc.title}`,
+        `Formato original: ${currentDoc.format} | Palabras: ${currentDoc.wordCount}`,
+        ``,
+        `1. RESUMEN CORTO:`,
+        currentDoc.shortSummary,
+        ``,
+        `2. RESUMEN DETALLADO:`,
+        currentDoc.detailedSummary,
+        ``,
+        `3. IDEAS PRINCIPALES:`,
+        ...(currentDoc.mainIdeas || []).map((m, i) => `${i + 1}. ${m}`),
+        ``,
+        `4. CONCEPTOS CLAVE:`,
+        ...(currentDoc.concepts || []).map((c) => `- ${c.term}: ${c.definition}`),
+        ``,
+        `5. TEXTO COMPLETO:`,
+        ...currentDoc.pages.map((p) => `\n--- ${p.title} ---\n` + p.paragraphs.join('\n\n'))
+      ].join('\n');
+
+      if (type === 'txt') {
+        triggerBlobDownload(new Blob([fullContent], { type: 'text/plain;charset=utf-8' }), `${safeName}.txt`);
+      } else if (type === 'md') {
+        const md = `# ${currentDoc.title}\n\n> Exportado desde **JAIRRESTAURA LECTOR IA PREMIUM**\n\n## Resumen Ejecutivo\n${currentDoc.shortSummary}\n\n## Ideas Principales\n${(currentDoc.mainIdeas || []).map((m) => `- ${m}`).join('\n')}\n\n## Conceptos Clave\n${(currentDoc.concepts || []).map((c) => `- **${c.term}**: ${c.definition}`).join('\n')}\n\n## Contenido del Documento\n${currentDoc.pages.map((p) => `### ${p.title}\n\n${p.paragraphs.join('\n\n')}`).join('\n\n')}`;
+        triggerBlobDownload(new Blob([md], { type: 'text/markdown;charset=utf-8' }), `${safeName}.md`);
+      } else if (type === 'word') {
+        const docHtml = `<html><head><meta charset="utf-8"><title>${escapeHtml(currentDoc.title)}</title></head><body style="font-family:Arial,sans-serif;line-height:1.6;"><h1>${escapeHtml(currentDoc.title)}</h1><h2>Resumen Ejecutivo</h2><p>${escapeHtml(currentDoc.shortSummary)}</p><h2>Resumen Detallado</h2><p>${escapeHtml(currentDoc.detailedSummary)}</p><h2>Conceptos Clave</h2><ul>${(currentDoc.concepts || []).map((c) => `<li><strong>${escapeHtml(c.term)}:</strong> ${escapeHtml(c.definition)}</li>`).join('')}</ul><h2>Contenido Completo</h2>${currentDoc.pages.map((p) => `<h3>${escapeHtml(p.title)}</h3>${p.paragraphs.map((pr) => `<p>${escapeHtml(pr)}</p>`).join('')}`).join('')}</body></html>`;
+        triggerBlobDownload(new Blob([docHtml], { type: 'application/msword' }), `${safeName}.doc`);
+      } else if (type === 'pdf') {
+        if (window.jspdf && window.jspdf.jsPDF) {
+          const pdf = new window.jspdf.jsPDF({ unit: 'pt', format: 'a4' });
+          const lines = pdf.splitTextToSize(fullContent, 515);
+          let y = 45;
+          lines.forEach((line) => {
+            if (y > 790) {
+              pdf.addPage();
+              y = 45;
+            }
+            pdf.text(line, 40, y);
+            y += 15;
+          });
+          pdf.save(`${safeName}.pdf`);
+        } else {
+          window.print();
+        }
+      }
+    }
+
+    function triggerBlobDownload(blob, filename) {
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = filename;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+    }
+
+    function escapeHtml(str) {
+      return String(str || '')
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#039;');
+    }
+
+    /* ========================================================================
+       13. FUNCIONES PARA DESCARGAR Y COPIAR EL PROPIO INDEX.HTML Y EL ESTUDIO
+       ======================================================================== */
+    function getCleanSelfHTML() {
+      return '<!DOCTYPE html>\n' + document.documentElement.outerHTML;
+    }
+
+    function showCopyFeedback(msg) {
+      const el = document.getElementById('copyActionFeedback');
+      if (!el) return;
+      el.textContent = msg;
+      setTimeout(() => {
+        if (el.textContent === msg) el.textContent = '';
+      }, 3500);
+    }
+
+    function downloadSelfSourceHTML() {
+      const htmlSource = getCleanSelfHTML();
+      const blob = new Blob([htmlSource], { type: 'text/html;charset=utf-8' });
+      triggerBlobDownload(blob, 'index.html');
+      showCopyFeedback('✅ Archivo index.html descargado');
+    }
+
+    async function copySelfSourceHTML() {
+      const htmlSource = getCleanSelfHTML();
+      const previewArea = document.getElementById('sourceCodeTextarea');
+      if (previewArea) previewArea.value = htmlSource;
+      try {
+        await navigator.clipboard.writeText(htmlSource);
+        showCopyFeedback('✅ Código index.html copiado al portapapeles');
+      } catch (e) {
+        if (previewArea) {
+          document.getElementById('sourceCodePreviewWrap').style.display = 'block';
+          previewArea.select();
+          document.execCommand('copy');
+          showCopyFeedback('✅ Código seleccionado y copiado');
+        }
+      }
+    }
+
+    async function copyFullStudySummary() {
+      if (!currentDoc) return;
+      const text = [
+        `JAIRRESTAURA LECTOR IA PREMIUM — ${currentDoc.title}`,
+        `Resumen Ejecutivo: ${currentDoc.shortSummary}`,
+        `Resumen Detallado: ${currentDoc.detailedSummary}`,
+        `Ideas Principales:\n- ${(currentDoc.mainIdeas || []).join('\n- ')}`,
+        `Conceptos Clave:\n- ${(currentDoc.concepts || []).map((c) => `${c.term}: ${c.definition}`).join('\n- ')}`
+      ].join('\n\n');
+      try {
+        await navigator.clipboard.writeText(text);
+        showCopyFeedback('✅ Resumen y estudio copiados al portapapeles');
+      } catch (e) {
+        showCopyFeedback('⚠️ Usa el botón de exportar TXT/MD');
+      }
+    }
+
+    function toggleSourceCodePreview() {
+      const wrap = document.getElementById('sourceCodePreviewWrap');
+      const area = document.getElementById('sourceCodeTextarea');
+      if (!wrap || !area) return;
+      const isHidden = wrap.style.display === 'none';
+      if (isHidden) {
+        area.value = getCleanSelfHTML();
+        wrap.style.display = 'block';
+      } else {
+        wrap.style.display = 'none';
+      }
+    }
+
+    /* Arranque automático al cargar el DOM */
+    window.addEventListener('DOMContentLoaded', () => {
+      initPWAFeatures();
+      setupDropzoneEvents();
+      loadPreferences();
+      initVoices();
+      loadLibraryFromStorage();
+    });
+  </script>
+</body>
 </html>

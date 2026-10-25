@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1E3A8A" />
+      <stop offset="50%" stop-color="#4F46E5" />
+      <stop offset="100%" stop-color="#06B6D4" />
+    </linearGradient>
+    <linearGradient id="accentGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#38BDF8" />
+      <stop offset="100%" stop-color="#A78BFA" />
+    </linearGradient>
+  </defs>
+  <rect width="512" height="512" rx="116" fill="url(#bgGrad)" />
+  <rect x="36" y="36" width="440" height="440" rx="92" fill="none" stroke="rgba(255,255,255,0.18)" stroke-width="4" />
+  <g transform="translate(96, 112)">
+    <!-- Open Book Base -->
+    <path d="M160 48 C115 24, 45 24, 0 44 L0 264 C45 244, 115 244, 160 268 C205 244, 275 244, 320 264 L320 44 C275 24, 205 24, 160 48 Z" fill="#0F172A" fill-opacity="0.55" stroke="#FFFFFF" stroke-width="18" stroke-linejoin="round" />
+    <line x1="160" y1="48" x2="160" y2="268" stroke="#38BDF8" stroke-width="14" stroke-linecap="round" />
+    <!-- Sync Highlight Lines -->
+    <line x1="38" y1="102" x2="122" y2="102" stroke="#FFD54F" stroke-width="14" stroke-linecap="round" />
+    <line x1="38" y1="146" x2="112" y2="146" stroke="#FFFFFF" stroke-opacity="0.85" stroke-width="12" stroke-linecap="round" />
+    <line x1="38" y1="188" x2="102" y2="188" stroke="#FFFFFF" stroke-opacity="0.6" stroke-width="12" stroke-linecap="round" />
+    <!-- Sound Wave Sync Lines on Right Page -->
+    <path d="M204 115 L204 175 M236 90 L236 200 M268 110 L268 180" stroke="url(#accentGrad)" stroke-width="14" stroke-linecap="round" />
+  </g>
+</svg>
